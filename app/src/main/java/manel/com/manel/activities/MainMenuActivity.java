@@ -3,6 +3,7 @@ package manel.com.manel.activities;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Looper;
 import android.support.v4.util.Pair;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +13,8 @@ import android.view.View;
 import android.widget.Button;
 
 import java.util.ArrayList;
+import java.util.logging.Handler;
+import java.util.logging.LogRecord;
 
 import manel.com.manel.R;
 import manel.com.manel.comms.CommunicationService;
@@ -19,11 +22,11 @@ import manel.com.manel.utils.OverviewCardsAdapter;
 
 public class MainMenuActivity extends AppCompatActivity implements View.OnClickListener{
 
+    public static Handler uiHandler;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private CommunicationService service;
-    private Button accButton, logButton, remConButton, labyrinthButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +34,23 @@ public class MainMenuActivity extends AppCompatActivity implements View.OnClickL
         setContentView(R.layout.activity_main_menu);
         setViews();
         startService(new Intent(this, CommunicationService.class));
+
+        uiHandler = new Handler() {
+            @Override
+            public void publish(LogRecord record) {
+                CommunicationLogActivity.post(record.toString());
+            }
+
+            @Override
+            public void flush() {
+
+            }
+
+            @Override
+            public void close() throws SecurityException {
+
+            }
+        };
     }
 
     /*
@@ -57,9 +77,6 @@ public class MainMenuActivity extends AppCompatActivity implements View.OnClickL
         myDataSet.add(OverviewCardsAdapter.LOG_CASE);
         mAdapter = new OverviewCardsAdapter(this, myDataSet);
         mRecyclerView.setAdapter(mAdapter);
-
-        //accButton = (Button) findViewById(R.id.)
-
     }
 
     private void startIntent(Class<?> clazz) {

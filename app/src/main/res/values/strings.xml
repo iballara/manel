@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Manel</string>
+    <string name="accelerometer">ACCELEROMETER</string>
 </resources>

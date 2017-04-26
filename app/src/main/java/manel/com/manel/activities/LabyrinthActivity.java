@@ -4,8 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import manel.com.manel.activities.others.Labyrinth;
-import manel.com.manel.activities.others.LabyrinthView;
+import manel.com.manel.activities.supports.Labyrinth;
+import manel.com.manel.activities.supports.LabyrinthView;
 
 public class LabyrinthActivity extends AppCompatActivity {
 
@@ -17,5 +17,10 @@ public class LabyrinthActivity extends AppCompatActivity {
         Labyrinth maze = (Labyrinth)extras.get("maze");  //retrieve the maze from intent extras
         LabyrinthView view = new LabyrinthView(this,maze);
         setContentView(view);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 }

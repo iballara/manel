@@ -1,4 +1,4 @@
-package manel.com.manel.activities.others;
+package manel.com.manel.activities.supports;
 
 import android.app.Activity;
 import android.content.Context;

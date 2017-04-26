@@ -14,6 +14,8 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.util.logging.Level;
+import java.util.logging.LogRecord;
 
 import manel.com.manel.activities.MainMenuActivity;
 
@@ -70,6 +72,7 @@ public class CommunicationService extends Service {
             this.setName(INNER_TAG);
             receiveUDPMessage();
         }
+
         private void receiveUDPMessage(){
 
             Looper.prepare();
@@ -96,7 +99,9 @@ public class CommunicationService extends Service {
                 mUIhandler = new Handler(){
 
                     public void handleMessage(Message message1) {
-
+                        MainMenuActivity.uiHandler.publish(
+                                new LogRecord(Level.INFO, message1.toString())
+                        );
                     }
                 };
             }
