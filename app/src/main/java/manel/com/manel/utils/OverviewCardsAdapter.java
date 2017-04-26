@@ -2,6 +2,7 @@ package manel.com.manel.utils;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v4.util.Pair;
 import android.support.v7.widget.RecyclerView;
@@ -14,6 +15,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import manel.com.manel.R;
+import manel.com.manel.activities.AccelerometerActivity;
+import manel.com.manel.activities.CommunicationLogActivity;
+import manel.com.manel.activities.LabyrinthActivity;
+import manel.com.manel.activities.MainMenuActivity;
+import manel.com.manel.activities.RemoteControlActivity;
+
 import java.util.ArrayList;
 
 public class OverviewCardsAdapter extends
@@ -30,6 +37,8 @@ public class OverviewCardsAdapter extends
     private static final CharSequence DRIVE = "DRIVE";
     private static final CharSequence LABYRINTH = "LABYRINTH";
     private static final CharSequence LOG = "LOGGER";
+
+    private Context context;
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements OnClickListener {
 
@@ -60,8 +69,9 @@ public class OverviewCardsAdapter extends
         }
     }
 
-    public OverviewCardsAdapter(ArrayList<Integer> myDataset) {
+    public OverviewCardsAdapter(Context context, ArrayList<Integer> myDataset) {
         mDataset = myDataset;
+        this.context = context;
     }
 /*
 
@@ -103,6 +113,12 @@ public class OverviewCardsAdapter extends
                 holder.mButton.setBackground(
                         new ColorDrawable(holder.mContext
                         .getResources().getColor(R.color.remote_control_blue)));
+                holder.mButton.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        context.startActivity(new Intent(context, RemoteControlActivity.class));
+                    }
+                });
                 break;
             case LABYRINTH_CASE:
                 holder.mImageView.setBackgroundResource(R.mipmap.labyrinth);
@@ -112,6 +128,12 @@ public class OverviewCardsAdapter extends
                 holder.mButton.setBackground(
                         new ColorDrawable(holder.mContext
                         .getResources().getColor(R.color.labyrinth_red)));
+                holder.mButton.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        context.startActivity(new Intent(context, LabyrinthActivity.class));
+                    }
+                });
                 break;
             case ACCELEROMETER_CASE:
                 holder.mImageView.setBackgroundResource(R.mipmap.accelerometer);
@@ -121,6 +143,12 @@ public class OverviewCardsAdapter extends
                 holder.mButton.setBackground(
                         new ColorDrawable(holder.mContext
                         .getResources().getColor(R.color.accelerometer_yellow)));
+                holder.mButton.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        context.startActivity(new Intent(context, AccelerometerActivity.class));
+                    }
+                });
                 break;
             case LOG_CASE:
                 holder.mImageView.setBackgroundResource(R.mipmap.logger);
@@ -130,6 +158,12 @@ public class OverviewCardsAdapter extends
                 holder.mButton.setBackground(
                         new ColorDrawable(holder.mContext
                                 .getResources().getColor(R.color.log_green)));
+                holder.mButton.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        context.startActivity(new Intent(context, CommunicationLogActivity.class));
+                    }
+                });
                 break;
             default:
                 Log.d(TAG, "Please set the type of Card");

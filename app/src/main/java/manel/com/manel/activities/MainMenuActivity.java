@@ -8,6 +8,8 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Button;
 
 import java.util.ArrayList;
 
@@ -15,20 +17,20 @@ import manel.com.manel.R;
 import manel.com.manel.comms.CommunicationService;
 import manel.com.manel.utils.OverviewCardsAdapter;
 
-public class MainMenuActivity extends AppCompatActivity {
+public class MainMenuActivity extends AppCompatActivity implements View.OnClickListener{
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private CommunicationService service;
+    private Button accButton, logButton, remConButton, labyrinthButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
         setViews();
-
-
+        startService(new Intent(this, CommunicationService.class));
     }
 
     /*
@@ -53,13 +55,20 @@ public class MainMenuActivity extends AppCompatActivity {
         myDataSet.add(OverviewCardsAdapter.LABYRINTH_CASE);
         myDataSet.add(OverviewCardsAdapter.ACCELEROMETER_CASE);
         myDataSet.add(OverviewCardsAdapter.LOG_CASE);
-        mAdapter = new OverviewCardsAdapter(myDataSet);
+        mAdapter = new OverviewCardsAdapter(this, myDataSet);
         mRecyclerView.setAdapter(mAdapter);
+
+        //accButton = (Button) findViewById(R.id.)
 
     }
 
     private void startIntent(Class<?> clazz) {
         Intent intent = new Intent(MainMenuActivity.this, clazz);
         startActivity(intent);
+    }
+
+    @Override
+    public void onClick(View v) {
+
     }
 }

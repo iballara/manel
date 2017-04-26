@@ -1,5 +1,6 @@
 package manel.com.manel.comms;
 
+import android.app.Notification;
 import android.app.Service;
 import android.content.Intent;
 import android.os.Handler;
@@ -7,18 +8,24 @@ import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
 
+import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 
+import manel.com.manel.activities.MainMenuActivity;
+
+import static android.R.attr.port;
+
 public class CommunicationService extends Service {
 
     private final static String LOCAL_IP = "192.168.1.4";
     private final static int PORT =  8080;
+    private static final int BYTES_BUFFER = 10000;
 
-    public static Handler handler = null;
+    public static Handler mUIhandler = null;
     public static Boolean isServiceRunning = false;
 
     private DatagramSocket socket;
@@ -38,7 +45,6 @@ public class CommunicationService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         (new MyThread()).start();
-        // PROVA
         try {
             localAddress = InetAddress.getByName(LOCAL_IP);
             socket = new DatagramSocket(PORT);
@@ -59,18 +65,43 @@ public class CommunicationService extends Service {
 
         private final static String INNER_TAG = "MyThread";
 
-        public void run() {
+        public void run(){
+            System.out.println("MyThread is running");
             this.setName(INNER_TAG);
-            Looper.prepare();
+            receiveUDPMessage();
+        }
+        private void receiveUDPMessage(){
 
-            handler = new Handler(){
-                @Override
-                public void handleMessage(Message msg) {
-                    // Used to receive message from activity.
-                    // Haurem de retornar el missatge a les activitats des d'aquí
+            Looper.prepare();
+            byte[] recvBuf = new byte[BYTES_BUFFER];
+            System.out.println("MyThread run method is running.");
+
+            if (socket == null || socket.isClosed()){
+                try {
+                    System.out.println("socket");
+                    socket = new DatagramSocket(port);
+                } catch (SocketException e) {
+                    e.printStackTrace();
                 }
-            };
+            }
+            DatagramPacket packet = new DatagramPacket(recvBuf, recvBuf.length);
+            try {
+                socket.receive(packet);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            String message = new String(packet.getData()).trim();
+            if(!message.equals("")){
+                //CommunicationAPI.sendMessageToActivity(message);
+                mUIhandler = new Handler(){
+
+                    public void handleMessage(Message message1) {
+
+                    }
+                };
+            }
             Looper.loop();
+
         }
     }
 }

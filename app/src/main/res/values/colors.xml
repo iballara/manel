@@ -8,4 +8,7 @@
     <item name="accelerometer_yellow" type="color">#FFEE58</item>
     <item name="log_green" type="color">#50D050</item>
     <item name="background_grey" type="color">#E0E0E0</item>
+    <color name="game_bg">#dddddd</color>
+    <color name="line">#000000</color>
+    <color name="position">#ff0000</color>
 </resources>
