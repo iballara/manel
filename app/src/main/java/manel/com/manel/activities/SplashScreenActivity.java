@@ -8,6 +8,12 @@ import android.view.Menu;
 
 import manel.com.manel.R;
 
+/**
+ * Typical Splash Activity, it will run for 2,5 seconds before we access MainMenuActivity.
+ *
+ * @author  Ignasi Ballara, Joaquim Porte, Arnau Tienda
+ * @version 1.0
+ */
 public class SplashScreenActivity extends AppCompatActivity {
 
     /**

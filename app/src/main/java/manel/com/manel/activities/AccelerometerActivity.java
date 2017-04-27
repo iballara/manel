@@ -10,6 +10,13 @@ import android.widget.TextView;
 
 import manel.com.manel.R;
 
+/**
+ * This Activity will record the values of the accelerometer of the robot.
+ * For this version, we only show the values of the Smartphone acc as an example.
+ *
+ * @author  Ignasi Ballara, Joaquim Porte, Arnau Tienda
+ * @version 1.0
+ */
 public class AccelerometerActivity extends AppCompatActivity implements SensorEventListener {
 
     private SensorManager sensorManager;

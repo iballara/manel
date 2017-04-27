@@ -1,5 +1,11 @@
 package manel.com.manel.activities.supports;
 
+/**
+ * This class is used to return an instance of Labyrinth.
+ *
+ * @author  Ignasi Ballara, Joaquim Porte, Arnau Tienda
+ * @version 1.0
+ */
 public class LabyrinthMother {
 
     public static Labyrinth getLabyrinth(int num) {

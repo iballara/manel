@@ -8,6 +8,12 @@ import android.widget.TextView;
 import manel.com.manel.R;
 import manel.com.manel.comms.CommunicationService;
 
+/**
+ * This Activity is in charge of Logging the UDP packets received.
+ *
+ * @author  Ignasi Ballara, Joaquim Porte, Arnau Tienda
+ * @version 1.0
+ */
 public class CommunicationLogActivity extends AppCompatActivity {
 
     private static TextView textView;
@@ -21,7 +27,8 @@ public class CommunicationLogActivity extends AppCompatActivity {
         startService(new Intent(this, CommunicationService.class));
     }
 
-    public static void post(final String message) {
+    public static void addLogRow(final String message) {
+
         textView.append("\nLog: " + message);
     }
 }

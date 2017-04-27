@@ -8,6 +8,12 @@ import android.view.View;
 
 import manel.com.manel.R;
 
+/**
+ * This class is in charge to draw the labyrinth to the View.
+ *
+ * @author  Ignasi Ballara, Joaquim Porte, Arnau Tienda
+ * @version 1.0
+ */
 public class LabyrinthView extends View {
 
     private int width, height, lineWidth;

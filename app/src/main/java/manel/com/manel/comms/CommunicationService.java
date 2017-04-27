@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
-import android.os.Message;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -14,11 +13,16 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
-import java.util.logging.Level;
-import java.util.logging.LogRecord;
 
-import manel.com.manel.activities.MainMenuActivity;
+import manel.com.manel.activities.CommunicationLogActivity;
 
+/**
+ * This is the communication service.
+ * It is in charge of receiving UDP packets and returning its messages to the view.
+ *
+ * @author  Ignasi Ballara, Joaquim Porte, Arnau Tienda
+ * @version 1.0
+ */
 public class CommunicationService extends Service {
 
     private final static String LOCAL_IP = "192.168.1.219";
@@ -44,7 +48,6 @@ public class CommunicationService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        handler = new Handler();
         Toast.makeText(this, "Service Started", Toast.LENGTH_LONG).show();
         (new MyThread()).start();
         try {
@@ -81,7 +84,6 @@ public class CommunicationService extends Service {
 
             if (socket == null || socket.isClosed()){
                 try {
-                    System.out.println("socket");
                     socket = new DatagramSocket(PORT);
                 } catch (SocketException e) {
                     e.printStackTrace();
@@ -95,16 +97,9 @@ public class CommunicationService extends Service {
             }
             final String message = new String(packet.getData()).trim();
             System.out.println(message);
-            if(!message.equals("")){
-
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        MainMenuActivity.uiHandler.publish(
-                                new LogRecord(Level.INFO, message)
-                        );
-                    }
-                });
+            // We now send the message to the UI.
+            if(message.length() > 0){
+                CommunicationLogActivity.addLogRow(message);
             }
             Looper.loop();
         }

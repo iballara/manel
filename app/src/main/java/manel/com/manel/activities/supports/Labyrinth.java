@@ -2,7 +2,13 @@ package manel.com.manel.activities.supports;
 
 import java.io.Serializable;
 
-
+/**
+ * This is the model of the Labyrinth class.
+ * It defines the structure of the object.
+ *
+ * @author  Ignasi Ballara, Joaquim Porte, Arnau Tienda
+ * @version 1.0
+ */
 public class Labyrinth implements Serializable {
 
     private static final long serialVersionUID = 1L;

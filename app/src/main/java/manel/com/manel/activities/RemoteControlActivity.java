@@ -14,6 +14,13 @@ import java.util.ArrayList;
 
 import manel.com.manel.R;
 
+/**
+ * Activty to control the robot. It also receives information from it
+ * like temperature or velocity.
+ *
+ * @author  Ignasi Ballara, Joaquim Porte, Arnau Tienda
+ * @version 1.0
+ */
 public class RemoteControlActivity extends AppCompatActivity
         implements GestureOverlayView.OnGesturePerformedListener{
 

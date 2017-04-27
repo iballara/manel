@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
-import android.support.v4.util.Pair;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,17 +13,22 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+
 import manel.com.manel.R;
 import manel.com.manel.activities.AccelerometerActivity;
 import manel.com.manel.activities.CommunicationLogActivity;
 import manel.com.manel.activities.LabyrinthActivity;
-import manel.com.manel.activities.MainMenuActivity;
 import manel.com.manel.activities.RemoteControlActivity;
-import manel.com.manel.activities.supports.Labyrinth;
-import manel.com.manel.activities.supports.LabyrinthMother;
 
-import java.util.ArrayList;
-
+/**
+ * And Adapter with an inner class of ViewHolder used to arrage card views
+ * on the MainMenuActivity.
+ *
+ * @author  Ignasi Ballara, Joaquim Porte, Arnau Tienda
+ * @version 1.0
+ */
 public class OverviewCardsAdapter extends
         RecyclerView.Adapter<OverviewCardsAdapter.ViewHolder> {
 
@@ -118,10 +122,7 @@ public class OverviewCardsAdapter extends
                 holder.mButton.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(context, LabyrinthActivity.class);
-                        Labyrinth labyrinth = LabyrinthMother.getLabyrinth(1);
-                        intent.putExtra("labyrinth", labyrinth);
-                        context.startActivity(intent);
+                        context.startActivity(new Intent(context, LabyrinthActivity.class));
                     }
                 });
                 break;
