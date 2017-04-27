@@ -1,6 +1,5 @@
 package manel.com.manel.activities;
 
-import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -13,8 +12,8 @@ import java.util.logging.Handler;
 import java.util.logging.LogRecord;
 
 import manel.com.manel.R;
-import manel.com.manel.comms.CommunicationService;
 import manel.com.manel.utils.OverviewCardsAdapter;
+
 /**
  * Main Activity. It is just a menu in order to decide what to do next.
  *

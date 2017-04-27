@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import manel.com.manel.R;
@@ -30,10 +31,10 @@ public class LabyrinthActivity extends AppCompatActivity {
         setContentView(R.layout.activity_labyrinth);
         ActionBar actBar = getSupportActionBar();
         actBar.setHomeButtonEnabled(true);
-        Labyrinth labyrinth = LabyrinthMother.getLabyrinth(1);
-        LabyrinthView view = new LabyrinthView(this, labyrinth);
-        LinearLayout layout = (LinearLayout) findViewById(R.id.linearLayout);
-        layout.addView(view);
+//        Labyrinth labyrinth = LabyrinthMother.getLabyrinth(1);
+//        LabyrinthView view = new LabyrinthView(this, labyrinth);
+//        LinearLayout layout = (LinearLayout) findViewById(R.id.linearLayout);
+//        layout.addView(view);
     }
 
     @Override

@@ -16,6 +16,7 @@ import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
 
+import manel.com.manel.activities.CommunicationLogActivity;
 import manel.com.manel.activities.MainMenuActivity;
 
 /**
@@ -27,15 +28,12 @@ import manel.com.manel.activities.MainMenuActivity;
  */
 public class CommunicationService extends Service {
 
-    private final static String LOCAL_IP = "192.168.1.219";
+    private final static String LOCAL_IP = "172.20.23.167";
     private final static int PORT =  53056;
     private static final int BYTES_BUFFER = 10000;
-
-    public static Handler mUIhandler;
     public static Boolean isServiceRunning = false;
 
     private DatagramSocket socket;
-    private DatagramPacket packet;
     private InetAddress localAddress;
 
     @Override
@@ -51,10 +49,26 @@ public class CommunicationService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Toast.makeText(this, "Service Started", Toast.LENGTH_LONG).show();
+        MainMenuActivity.uiHandler = new java.util.logging.Handler() {
+            @Override
+            public void publish(LogRecord record) {
+                CommunicationLogActivity.post(record.toString());
+            }
+
+            @Override
+            public void flush() {
+
+            }
+
+            @Override
+            public void close() throws SecurityException {
+
+            }
+        };
         (new MyThread()).start();
         try {
             localAddress = InetAddress.getByName(LOCAL_IP);
-            socket = new DatagramSocket();
+            socket = new DatagramSocket(PORT, localAddress);
         } catch (UnknownHostException | SocketException e) {
             e.printStackTrace();
         }
@@ -75,6 +89,7 @@ public class CommunicationService extends Service {
     private class MyThread extends Thread {
 
         private final static String INNER_TAG = "MyThread";
+
 
         public void run(){
             System.out.println("MyThread is running");
