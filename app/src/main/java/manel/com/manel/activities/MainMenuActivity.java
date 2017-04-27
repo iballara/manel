@@ -3,14 +3,11 @@ package manel.com.manel.activities;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.os.Looper;
-import android.support.v4.util.Pair;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Button;
 
 import java.util.ArrayList;
 import java.util.logging.Handler;
@@ -33,12 +30,11 @@ public class MainMenuActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
         setViews();
-        startService(new Intent(this, CommunicationService.class));
 
         uiHandler = new Handler() {
             @Override
             public void publish(LogRecord record) {
-                CommunicationLogActivity.post(record.toString());
+                CommunicationLogActivity.post(record.getMessage());
             }
 
             @Override

@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">Manel</string>
     <string name="accelerometer">ACCELEROMETER</string>
+    <string name="aut_man">AUT/MAN</string>
+    <string name="lights">LIGHTS CONTROL</string>
+    <string name="_20_c">20 ºC</string>
+    <string name="gears">GEARS</string>
+    <string name="_10_km_h">10 km/h</string>
 </resources>

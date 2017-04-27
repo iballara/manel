@@ -20,6 +20,8 @@ import manel.com.manel.activities.CommunicationLogActivity;
 import manel.com.manel.activities.LabyrinthActivity;
 import manel.com.manel.activities.MainMenuActivity;
 import manel.com.manel.activities.RemoteControlActivity;
+import manel.com.manel.activities.supports.Labyrinth;
+import manel.com.manel.activities.supports.LabyrinthMother;
 
 import java.util.ArrayList;
 
@@ -73,22 +75,7 @@ public class OverviewCardsAdapter extends
         mDataset = myDataset;
         this.context = context;
     }
-/*
 
-    public void addItem(int position, Pair<Integer, Integer> item) {
-
-        mDataset.add(item);
-        notifyItemInserted(position);
-    }
-
-    public void removeItem(Pair<Integer, Integer> item) {
-
-        int position = mDataset.indexOf(item);
-        mDataset.remove(position);
-        notifyItemRemoved(position);
-    }
-
-*/
     @Override
     public OverviewCardsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
                                                               int viewType) {
@@ -131,7 +118,10 @@ public class OverviewCardsAdapter extends
                 holder.mButton.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        context.startActivity(new Intent(context, LabyrinthActivity.class));
+                        Intent intent = new Intent(context, LabyrinthActivity.class);
+                        Labyrinth labyrinth = LabyrinthMother.getLabyrinth(1);
+                        intent.putExtra("labyrinth", labyrinth);
+                        context.startActivity(intent);
                     }
                 });
                 break;

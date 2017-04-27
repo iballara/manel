@@ -13,9 +13,9 @@ public class LabyrinthActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
-        Bundle extras = intent.getExtras();    //get the intent extras
-        Labyrinth maze = (Labyrinth)extras.get("maze");  //retrieve the maze from intent extras
-        LabyrinthView view = new LabyrinthView(this,maze);
+        Bundle extras = intent.getExtras();
+        Labyrinth labyrinth = (Labyrinth)extras.get("labyrinth");
+        LabyrinthView view = new LabyrinthView(this, labyrinth);
         setContentView(view);
     }
 

@@ -1,12 +1,12 @@
 package manel.com.manel.comms;
 
-import android.app.Notification;
 import android.app.Service;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -19,15 +19,13 @@ import java.util.logging.LogRecord;
 
 import manel.com.manel.activities.MainMenuActivity;
 
-import static android.R.attr.port;
-
 public class CommunicationService extends Service {
 
-    private final static String LOCAL_IP = "192.168.1.4";
-    private final static int PORT =  8080;
+    private final static String LOCAL_IP = "192.168.1.219";
+    private final static int PORT =  53056;
     private static final int BYTES_BUFFER = 10000;
 
-    public static Handler mUIhandler = null;
+    private Handler handler;
     public static Boolean isServiceRunning = false;
 
     private DatagramSocket socket;
@@ -46,10 +44,12 @@ public class CommunicationService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        handler = new Handler();
+        Toast.makeText(this, "Service Started", Toast.LENGTH_LONG).show();
         (new MyThread()).start();
         try {
             localAddress = InetAddress.getByName(LOCAL_IP);
-            socket = new DatagramSocket(PORT);
+            socket = new DatagramSocket();
         } catch (UnknownHostException | SocketException e) {
             e.printStackTrace();
         }
@@ -82,7 +82,7 @@ public class CommunicationService extends Service {
             if (socket == null || socket.isClosed()){
                 try {
                     System.out.println("socket");
-                    socket = new DatagramSocket(port);
+                    socket = new DatagramSocket(PORT);
                 } catch (SocketException e) {
                     e.printStackTrace();
                 }
@@ -93,20 +93,20 @@ public class CommunicationService extends Service {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            String message = new String(packet.getData()).trim();
+            final String message = new String(packet.getData()).trim();
+            System.out.println(message);
             if(!message.equals("")){
-                //CommunicationAPI.sendMessageToActivity(message);
-                mUIhandler = new Handler(){
 
-                    public void handleMessage(Message message1) {
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
                         MainMenuActivity.uiHandler.publish(
-                                new LogRecord(Level.INFO, message1.toString())
+                                new LogRecord(Level.INFO, message)
                         );
                     }
-                };
+                });
             }
             Looper.loop();
-
         }
     }
 }

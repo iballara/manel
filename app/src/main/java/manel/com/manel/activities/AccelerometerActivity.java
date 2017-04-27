@@ -47,7 +47,7 @@ public class AccelerometerActivity extends AppCompatActivity implements SensorEv
 
     private void printACCdata(double x, double y, double z){
         tvX.setText(String.format("X: %s", x));
-        tvY.setText(String.format("X: %s", y));
-        tvZ.setText(String.format("X: %s", z));
+        tvY.setText(String.format("Y: %s", y));
+        tvZ.setText(String.format("Z: %s", z));
     }
 }
