@@ -1,16 +1,19 @@
 package manel.com.manel.activities;
 
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.logging.Handler;
+import java.util.logging.LogRecord;
 
 import manel.com.manel.R;
+import manel.com.manel.comms.CommunicationService;
 import manel.com.manel.utils.OverviewCardsAdapter;
 /**
  * Main Activity. It is just a menu in order to decide what to do next.
@@ -25,16 +28,45 @@ public class MainMenuActivity extends AppCompatActivity{
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
+    /**
+     * OnCreate Method from Activity.
+     *
+     * @param savedInstanceState Bundle
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
         setViews();
-        uiHandler = new Handler();
+
+        uiHandler = new Handler() {
+            @Override
+            public void publish(LogRecord record) {
+                CommunicationLogActivity.post(record.toString());
+            }
+
+            @Override
+            public void flush() {
+
+            }
+
+            @Override
+            public void close() throws SecurityException {
+
+            }
+        };
+    }
+
+    public void runUi(Runnable runnable){
+        this.runOnUiThread(runnable);
     }
 
     /*
         PRIVATE METHODS
+     */
+
+    /**
+     * Sets the initial configuration of the views.
      */
     private void setViews() {
 

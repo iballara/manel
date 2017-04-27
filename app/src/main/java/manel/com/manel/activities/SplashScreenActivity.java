@@ -17,17 +17,18 @@ import manel.com.manel.R;
 public class SplashScreenActivity extends AppCompatActivity {
 
     /**
-     * Time we are waiting.
+     * Duration of the Splash screen.
      */
     private final int SPLASH_DISPLAY_LENGTH = 2500;
 
     /**
-     * Called when the activity is created.
-     * @param icicle Bundle
+     * OnCreate Method from Activity.
+     *
+     * @param savedInstanceState Bundle
      */
     @Override
-    public void onCreate(Bundle icicle) {
-        super.onCreate(icicle);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
         new Handler().postDelayed(new Runnable(){

@@ -5,6 +5,7 @@ import java.io.Serializable;
 /**
  * This is the model of the Labyrinth class.
  * It defines the structure of the object.
+ * It has no constructor for this version, we use LabyrinthMother instead.
  *
  * @author  Ignasi Ballara, Joaquim Porte, Arnau Tienda
  * @version 1.0

@@ -18,6 +18,11 @@ import manel.com.manel.activities.supports.LabyrinthView;
  */
 public class LabyrinthActivity extends AppCompatActivity {
 
+    /**
+     * OnCreate Method from Activity.
+     *
+     * @param savedInstanceState Bundle
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -1,5 +1,6 @@
 package manel.com.manel.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +19,11 @@ public class CommunicationLogActivity extends AppCompatActivity {
 
     private static TextView textView;
 
+    /**
+     * OnCreate Method from Activity.
+     *
+     * @param savedInstanceState Bundle
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,8 +33,7 @@ public class CommunicationLogActivity extends AppCompatActivity {
         startService(new Intent(this, CommunicationService.class));
     }
 
-    public static void addLogRow(final String message) {
-
-        textView.append("\nLog: " + message);
+    public static void post(String message) {
+        textView.append("\n" + message);
     }
 }

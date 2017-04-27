@@ -8,6 +8,11 @@ package manel.com.manel.activities.supports;
  */
 public class LabyrinthMother {
 
+    /**
+     * Returns an instance of Labyrinth.
+     * @param num int
+     * @return Labyrinth
+     */
     public static Labyrinth getLabyrinth(int num) {
         Labyrinth labyrinth = null;
         if(num == 1) {

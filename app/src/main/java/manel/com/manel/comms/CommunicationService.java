@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
+import android.os.Message;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -13,8 +14,11 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.util.logging.Level;
+import java.util.logging.LogRecord;
 
 import manel.com.manel.activities.CommunicationLogActivity;
+import manel.com.manel.activities.MainMenuActivity;
 
 /**
  * This is the communication service.
@@ -29,7 +33,7 @@ public class CommunicationService extends Service {
     private final static int PORT =  53056;
     private static final int BYTES_BUFFER = 10000;
 
-    private Handler handler;
+    public static Handler mUIhandler;
     public static Boolean isServiceRunning = false;
 
     private DatagramSocket socket;
@@ -66,6 +70,10 @@ public class CommunicationService extends Service {
         isServiceRunning = false;
     }
 
+    /**
+     * Inner class MyThread constantly runs and receives UDP packets
+     * while sending data to the UI.
+     */
     private class MyThread extends Thread {
 
         private final static String INNER_TAG = "MyThread";
@@ -76,6 +84,9 @@ public class CommunicationService extends Service {
             receiveUDPMessage();
         }
 
+        /**
+         * Method in charge of receiving the UDP packets.
+         */
         private void receiveUDPMessage(){
 
             Looper.prepare();
@@ -97,9 +108,8 @@ public class CommunicationService extends Service {
             }
             final String message = new String(packet.getData()).trim();
             System.out.println(message);
-            // We now send the message to the UI.
             if(message.length() > 0){
-                CommunicationLogActivity.addLogRow(message);
+                MainMenuActivity.uiHandler.publish(new LogRecord(Level.INFO, message));
             }
             Looper.loop();
         }

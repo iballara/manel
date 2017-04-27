@@ -22,6 +22,12 @@ public class AccelerometerActivity extends AppCompatActivity implements SensorEv
     private SensorManager sensorManager;
     private TextView tvX, tvY, tvZ;
     private double ax,ay,az;
+
+    /**
+     * OnCreate Method from Activity.
+     *
+     * @param savedInstanceState Bundle
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -46,6 +46,9 @@ public class OverviewCardsAdapter extends
 
     private Context context;
 
+    /**
+     * Inner class in order to arrange views.
+     */
     public static class ViewHolder extends RecyclerView.ViewHolder implements OnClickListener {
 
         private Context mContext;

@@ -26,6 +26,11 @@ public class RemoteControlActivity extends AppCompatActivity
 
     private GestureLibrary gestureLib;
 
+    /**
+     * OnCreate Method from Activity.
+     *
+     * @param savedInstanceState Bundle
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

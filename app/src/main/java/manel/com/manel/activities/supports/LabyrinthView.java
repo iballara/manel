@@ -26,6 +26,12 @@ public class LabyrinthView extends View {
     private Paint line, red, background;
 
 
+    /**
+     * Constructor.
+     *
+     * @param context Context
+     * @param labyrinth Labyrinth
+     */
     public LabyrinthView(Context context, Labyrinth labyrinth) {
         super(context);
         this.context = (Activity)context;
@@ -85,5 +91,18 @@ public class LabyrinthView extends View {
                 (labyrinthFinishX * totalCellWidth)+(cellWidth*0.25f),
                 (labyrinthFinishY * totalCellHeight)+(cellHeight*0.75f),
                 red);
+    }
+
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        width = (w < h)?w:h;
+        height = width;
+        lineWidth = 1;
+        cellWidth = (width - ((float)labyrinthSizeX*lineWidth)) / totalCellWidth;
+        totalCellWidth = cellWidth+lineWidth;
+        cellHeight = (height - ((float)labyrinthSizeY*lineWidth)) / totalCellHeight;
+        totalCellHeight = cellHeight+lineWidth;
+        red.setTextSize(cellHeight*0.75f);
+        super.onSizeChanged(w, h, oldw, oldh);
     }
 }
