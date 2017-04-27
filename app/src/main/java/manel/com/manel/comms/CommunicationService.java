@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
-import android.os.Message;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -17,7 +16,6 @@ import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
 
-import manel.com.manel.activities.CommunicationLogActivity;
 import manel.com.manel.activities.MainMenuActivity;
 
 /**

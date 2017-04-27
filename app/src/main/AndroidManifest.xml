@@ -28,19 +28,35 @@
 
         <activity android:name=".activities.RemoteControlActivity"
             android:screenOrientation="landscape"
-            android:configChanges="orientation|keyboardHidden"/>
+            android:configChanges="orientation|keyboardHidden" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.MainMenuActivity" />
+        </activity>
 
         <activity android:name=".activities.LabyrinthActivity"
             android:screenOrientation="landscape"
-            android:configChanges="orientation|keyboardHidden"/>
+            android:configChanges="orientation|keyboardHidden">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.MainMenuActivity" />
+        </activity>
 
         <activity android:name=".activities.AccelerometerActivity"
             android:screenOrientation="landscape"
-            android:configChanges="orientation|keyboardHidden"/>
+            android:configChanges="orientation|keyboardHidden">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.MainMenuActivity" />
+        </activity>
 
         <activity android:name=".activities.CommunicationLogActivity"
             android:screenOrientation="portrait"
-            android:configChanges="orientation|keyboardHidden"/>
+            android:configChanges="orientation|keyboardHidden">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.MainMenuActivity" />
+        </activity>
 
         <service android:name=".comms.CommunicationService" />
     </application>
