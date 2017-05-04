@@ -49,7 +49,7 @@ public class OverviewCardsAdapter extends
     /**
      * Inner class in order to arrange views.
      */
-    public static class ViewHolder extends RecyclerView.ViewHolder implements OnClickListener {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
 
         private Context mContext;
         public View view;
@@ -69,12 +69,6 @@ public class OverviewCardsAdapter extends
             mTextView1 = (TextView) view.findViewById(R.id.card_text_1);
             mTextView2 = (TextView) view.findViewById(R.id.card_text_2);
             mButton = (Button) view.findViewById(R.id.card_button);
-        }
-
-        @Override
-        public void onClick(View v) {
-            // TODO Auto-generated method stub
-            // Anar a fer el que toqui
         }
     }
 

@@ -59,6 +59,7 @@
         </activity>
 
         <service android:name=".comms.CommunicationService" />
+
     </application>
 
 </manifest>

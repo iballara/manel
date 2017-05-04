@@ -1,10 +1,11 @@
 package manel.com.manel.comms;
 
+import android.app.Notification;
 import android.app.Service;
 import android.content.Intent;
-import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
+import android.os.Message;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -28,7 +29,7 @@ import manel.com.manel.activities.MainMenuActivity;
  */
 public class CommunicationService extends Service {
 
-    private final static String LOCAL_IP = "172.20.23.167";
+    private final static String LOCAL_IP = "192.168.43.105";
     private final static int PORT =  53056;
     private static final int BYTES_BUFFER = 10000;
     public static Boolean isServiceRunning = false;
@@ -49,22 +50,6 @@ public class CommunicationService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Toast.makeText(this, "Service Started", Toast.LENGTH_LONG).show();
-        MainMenuActivity.uiHandler = new java.util.logging.Handler() {
-            @Override
-            public void publish(LogRecord record) {
-                CommunicationLogActivity.post(record.toString());
-            }
-
-            @Override
-            public void flush() {
-
-            }
-
-            @Override
-            public void close() throws SecurityException {
-
-            }
-        };
         (new MyThread()).start();
         try {
             localAddress = InetAddress.getByName(LOCAL_IP);
@@ -102,6 +87,7 @@ public class CommunicationService extends Service {
          */
         private void receiveUDPMessage(){
 
+            Message message1 = new Message();
             Looper.prepare();
             byte[] recvBuf = new byte[BYTES_BUFFER];
             System.out.println("MyThread run method is running.");
@@ -122,7 +108,10 @@ public class CommunicationService extends Service {
             final String message = new String(packet.getData()).trim();
             System.out.println(message);
             if(message.length() > 0){
-                MainMenuActivity.uiHandler.publish(new LogRecord(Level.INFO, message));
+                // Falta acabar d'arreglar això, que no funciona.
+                //MainMenuActivity.uiHandler.publish(new LogRecord(Level.INFO, message));
+                message1.obj = message;
+                MainMenuActivity.uiHandler.sendMessage(message1);
             }
             Looper.loop();
         }

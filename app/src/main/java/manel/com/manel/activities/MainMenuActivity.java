@@ -2,14 +2,14 @@ package manel.com.manel.activities;
 
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.logging.Handler;
-import java.util.logging.LogRecord;
 
 import manel.com.manel.R;
 import manel.com.manel.utils.OverviewCardsAdapter;
@@ -22,6 +22,7 @@ import manel.com.manel.utils.OverviewCardsAdapter;
  */
 public class MainMenuActivity extends AppCompatActivity{
 
+    // Do we really need it?
     public static Handler uiHandler;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -37,21 +38,11 @@ public class MainMenuActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
         setViews();
-
-        uiHandler = new Handler() {
+        uiHandler = new Handler(){
             @Override
-            public void publish(LogRecord record) {
-                CommunicationLogActivity.post(record.toString());
-            }
-
-            @Override
-            public void flush() {
-
-            }
-
-            @Override
-            public void close() throws SecurityException {
-
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                CommunicationLogActivity.post((String) msg.obj);
             }
         };
     }

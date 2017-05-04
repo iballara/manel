@@ -1,6 +1,5 @@
 package manel.com.manel.activities;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -32,9 +31,9 @@ public class CommunicationLogActivity extends AppCompatActivity {
         setContentView(R.layout.activity_log);
         ActionBar actBar = getSupportActionBar();
         actBar.setHomeButtonEnabled(true);
+        startService(new Intent(this, CommunicationService.class));
         textView = (TextView) findViewById(R.id.tv_log);
         textView.setText("LOG:");
-        startService(new Intent(this, CommunicationService.class));
     }
 
     @Override
