@@ -1,8 +1,15 @@
-package manel.com.manel.activities.others;
+package manel.com.manel.activities.supports;
 
 import java.io.Serializable;
 
-
+/**
+ * This is the model of the Labyrinth class.
+ * It defines the structure of the object.
+ * It has no constructor for this version, we use LabyrinthMother instead.
+ *
+ * @author  Ignasi Ballara, Joaquim Porte, Arnau Tienda
+ * @version 1.0
+ */
 public class Labyrinth implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -13,6 +20,7 @@ public class Labyrinth implements Serializable {
     private boolean[][] horizontalLines;
     private int sizeX, sizeY;         //stores the width and height of the maze
     private int currentX, currentY;   //stores the current location of the ball
+    private int startX, startY;
     private int finalX, finalY;       //stores the finishing point of the maze
     private boolean gameComplete;
 
@@ -88,5 +96,31 @@ public class Labyrinth implements Serializable {
         this.gameComplete = gameComplete;
     }
 
+    public int getStartX() {
+        return startX;
+    }
 
+    public void setStartX(int startX) {
+        this.startX = startX;
+    }
+
+    public int getStartY() {
+        return startY;
+    }
+
+    public void setStartY(int startY) {
+        this.startY = startY;
+    }
+
+
+    public void setStartPosition(int i, int j) {
+        startX = i;
+        startY = j;
+    }
+
+
+    public void setFinalPosition(int i, int j) {
+        finalX = i;
+        finalY = j;
+    }
 }

@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
-import android.support.v4.util.Pair;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,15 +13,22 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+
 import manel.com.manel.R;
 import manel.com.manel.activities.AccelerometerActivity;
 import manel.com.manel.activities.CommunicationLogActivity;
 import manel.com.manel.activities.LabyrinthActivity;
-import manel.com.manel.activities.MainMenuActivity;
 import manel.com.manel.activities.RemoteControlActivity;
 
-import java.util.ArrayList;
-
+/**
+ * And Adapter with an inner class of ViewHolder used to arrage card views
+ * on the MainMenuActivity.
+ *
+ * @author  Ignasi Ballara, Joaquim Porte, Arnau Tienda
+ * @version 1.0
+ */
 public class OverviewCardsAdapter extends
         RecyclerView.Adapter<OverviewCardsAdapter.ViewHolder> {
 
@@ -40,6 +46,9 @@ public class OverviewCardsAdapter extends
 
     private Context context;
 
+    /**
+     * Inner class in order to arrange views.
+     */
     public static class ViewHolder extends RecyclerView.ViewHolder implements OnClickListener {
 
         private Context mContext;
@@ -73,22 +82,7 @@ public class OverviewCardsAdapter extends
         mDataset = myDataset;
         this.context = context;
     }
-/*
 
-    public void addItem(int position, Pair<Integer, Integer> item) {
-
-        mDataset.add(item);
-        notifyItemInserted(position);
-    }
-
-    public void removeItem(Pair<Integer, Integer> item) {
-
-        int position = mDataset.indexOf(item);
-        mDataset.remove(position);
-        notifyItemRemoved(position);
-    }
-
-*/
     @Override
     public OverviewCardsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
                                                               int viewType) {

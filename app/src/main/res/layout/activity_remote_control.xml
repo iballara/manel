@@ -3,19 +3,71 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TableRow>
-    
+    <TableRow
+        android:id="@+id/tableRow1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:padding="5dip" >
+
+        <TextView
+            android:id="@+id/tv_temperature"
+            android:text="@string/_20_c"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <Button
+            android:id="@+id/button_gears"
+            android:text="@string/gears" />
+
+        <TextView
+            android:id="@+id/tv_velocimeter"
+            android:text="@string/_10_km_h"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
     </TableRow>
 
+    <TableRow
+        android:id="@+id/tableRow2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:padding="5dip" >
 
-    <TableRow>
+        <Button
+            android:id="@+id/btn_automatic_manual"
+            android:text="@string/aut_man" />
 
+        <Button
+            android:id="@+id/btn_light_control"
+            android:text="@string/lights" />
     </TableRow>
 
+    <TableRow
+        android:id="@+id/tableRow3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:padding="5dip" >
 
-    <TableRow>
+        <View
+            android:id="@+id/bumper_left"
+            android:layout_width="20dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/rectangle"/>
+
+        <View
+            android:id="@+id/bumper_collision"
+            android:layout_width="20dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/rectangle"/>
+
+        <View
+            android:id="@+id/bumper_right"
+            android:layout_width="20dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/rectangle"/>
 
     </TableRow>
-
-
 </TableLayout>
