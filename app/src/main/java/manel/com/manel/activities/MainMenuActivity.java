@@ -22,7 +22,6 @@ import manel.com.manel.utils.OverviewCardsAdapter;
  */
 public class MainMenuActivity extends AppCompatActivity{
 
-    // Do we really need it?
     public static Handler uiHandler;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;

@@ -23,7 +23,6 @@ public class AccelerometerActivity extends AppCompatActivity implements SensorEv
 
     private SensorManager sensorManager;
     private TextView tvX, tvY, tvZ;
-    private double ax,ay,az;
 
     /**
      * OnCreate Method from Activity.
