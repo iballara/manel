@@ -69,12 +69,13 @@ public class RemoteControlActivity extends AppCompatActivity
 
     @Override
     public void onGesturePerformed(GestureOverlayView overlay, Gesture gesture) {
+
         ArrayList<Prediction> predictions = gestureLib.recognize(gesture);
-        for (Prediction prediction : predictions) {
-            if (prediction.score > 1.0 && prediction.name.length()>1) {
-                Toast.makeText(this, prediction.name, Toast.LENGTH_SHORT)
-                        .show();
-            }
+        Prediction prediction = predictions.get(0);
+
+        if (prediction.score > 1.0 && prediction.name.length()>1) {
+            Toast.makeText(this, prediction.name , Toast.LENGTH_SHORT).show();
         }
+
     }
 }

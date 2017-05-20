@@ -4,14 +4,8 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import manel.com.manel.R;
-import manel.com.manel.activities.supports.Labyrinth;
-import manel.com.manel.activities.supports.LabyrinthMother;
-import manel.com.manel.activities.supports.LabyrinthView;
-
 /**
  * An Activity with which we will keep track of the robot solving the labyrinth.
  *
