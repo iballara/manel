@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <TableRow
@@ -16,13 +17,18 @@
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <Button
-            android:id="@+id/button_gears"
-            android:text="@string/gears" />
+            android:id="@+id/button_gears_plus"
+            android:text="@string/gears_plus" />
+
+        <Button
+            android:id="@+id/button_gears_minus"
+            android:text="@string/gears_minus" />
 
         <TextView
             android:id="@+id/tv_velocimeter"
             android:text="@string/_10_km_h"
             android:textAppearance="?android:attr/textAppearanceLarge" />
+
     </TableRow>
 
     <TableRow
@@ -34,10 +40,12 @@
 
         <Button
             android:id="@+id/btn_automatic_manual"
+            android:layout_width="wrap_content"
             android:text="@string/aut_man" />
 
         <Button
             android:id="@+id/btn_light_control"
+            android:layout_width="wrap_content"
             android:text="@string/lights" />
     </TableRow>
 
@@ -68,6 +76,20 @@
             android:layout_height="50dp"
             android:layout_margin="10dp"
             android:background="@drawable/rectangle"/>
+
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/tableRow4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:padding="5dip">
+
+        <Button
+            android:id="@+id/acc_button"
+            android:layout_width="match_parent"
+            android:text="ACCELERATE"/>
 
     </TableRow>
 </TableLayout>
