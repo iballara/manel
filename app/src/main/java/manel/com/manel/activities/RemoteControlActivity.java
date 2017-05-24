@@ -26,6 +26,7 @@ import java.util.List;
 import manel.com.manel.R;
 import manel.com.manel.utils.Constants;
 
+import static java.util.Arrays.asList;
 import static manel.com.manel.utils.Constants.RemoteControl.ANGLE_LEFT_1;
 import static manel.com.manel.utils.Constants.RemoteControl.ANGLE_RIGHT_1;
 import static manel.com.manel.utils.Constants.RemoteControl.ANGLE_RIGHT_2;
@@ -149,7 +150,7 @@ public class RemoteControlActivity extends AppCompatActivity
 
 
         tvTemperature = (TextView) findViewById(R.id.tv_temperature);
-        btnGearsPlus = (Button) findViewById(R.id.button_gears_minus);
+        btnGearsPlus = (Button) findViewById(R.id.button_gears_plus);
         btnGearsMinus = (Button) findViewById(R.id.button_gears_minus);
         tvSpeed = (TextView) findViewById(R.id.tv_velocimeter);
         btnAutMan = (Button) findViewById(R.id.btn_automatic_manual);
@@ -159,7 +160,7 @@ public class RemoteControlActivity extends AppCompatActivity
         bumperRight = findViewById(R.id.bumper_right);
         btnAccelerate = (Button) findViewById(R.id.acc_button);
 
-        final List<Button> viewsToDeactivate = Arrays.asList(btnGearsPlus, btnGearsMinus,
+        final List<Button> viewsToDeactivate = asList(btnGearsPlus, btnGearsMinus,
                 btnAccelerate, btnLights);
 
         btnGearsPlus.setOnClickListener(new View.OnClickListener() {
@@ -179,21 +180,13 @@ public class RemoteControlActivity extends AppCompatActivity
         btnAutMan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 drivingModeManual = !drivingModeManual;
 
-                if (!drivingModeManual) {
-                    // We deactivate some buttons if we are riding in automatic.
-                    for (Button button : viewsToDeactivate) {
-                        button.setClickable(false);
-                        button.setEnabled(false);
-                    }
-
-                } else {
-                    for (Button button : viewsToDeactivate) {
-                        button.setClickable(true);
-                        button.setEnabled(true);
-                    }
-                }
+                // We deactivate some buttons if we are
+                // riding in automatic and viceversa.
+                for (Button button : viewsToDeactivate)
+                    button.setEnabled(drivingModeManual);
             }
         });
 
