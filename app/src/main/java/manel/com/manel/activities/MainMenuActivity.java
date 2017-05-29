@@ -10,9 +10,14 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import manel.com.manel.R;
+import manel.com.manel.comms.udp.UdpDatagramDeconstructor;
+import manel.com.manel.comms.udp.UdpDatagramHelper;
 import manel.com.manel.utils.OverviewCardsAdapter;
+
+import static manel.com.manel.comms.udp.UdpDatagramHelper.parseReceivedMessage;
 
 /**
  * Main Activity. It is just a menu in order to decide what to do next.
@@ -41,7 +46,8 @@ public class MainMenuActivity extends AppCompatActivity{
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
-                CommunicationLogActivity.post((String) msg.obj);
+                HashMap<String, String> data = parseReceivedMessage((String) msg.obj);
+                UdpDatagramDeconstructor.receiveData(data);
             }
         };
     }

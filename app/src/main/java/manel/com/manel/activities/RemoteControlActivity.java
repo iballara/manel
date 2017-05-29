@@ -18,22 +18,26 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import manel.com.manel.R;
-import manel.com.manel.utils.Constants;
+import manel.com.manel.comms.udp.UdpDatagramConstructor;
 
 import static java.util.Arrays.asList;
+import static manel.com.manel.comms.udp.UdpDatagramConstructor.*;
+import static manel.com.manel.utils.Constants.RemoteControl.*;
 import static manel.com.manel.utils.Constants.RemoteControl.ANGLE_LEFT_1;
 import static manel.com.manel.utils.Constants.RemoteControl.ANGLE_RIGHT_1;
 import static manel.com.manel.utils.Constants.RemoteControl.ANGLE_RIGHT_2;
 import static manel.com.manel.utils.Constants.RemoteControl.ANGLE_ZERO;
-import static manel.com.manel.utils.Constants.RemoteControl.AUTOMATIC_MODE;
-import static manel.com.manel.utils.Constants.RemoteControl.MANUAL_MODE;
+import static manel.com.manel.utils.Constants.RemoteControl.CIRCLE;
+import static manel.com.manel.utils.Constants.RemoteControl.MAX_GEAR;
+import static manel.com.manel.utils.Constants.RemoteControl.MIN_GEAR;
+import static manel.com.manel.utils.Constants.RemoteControl.SQUARE;
 import static manel.com.manel.utils.Constants.RemoteControl.STOPPED;
+import static manel.com.manel.utils.Constants.RemoteControl.TRIANGLE;
 
 /**
  * Activty to control the robot. It also receives information from it
@@ -48,12 +52,12 @@ public class RemoteControlActivity extends AppCompatActivity
     private GestureLibrary gestureLib;
     private Boolean drivingModeManual;
     private Integer currentGear;
-    private Boolean ligthsOn;
+    private Boolean lightsOn;
 
     // Views
-    TextView tvTemperature, tvSpeed;
-    Button btnGearsPlus, btnGearsMinus, btnAutMan, btnLights, btnAccelerate;
-    View bumperLeft, bumperCenter, bumperRight;
+    public static TextView tvTemperature, tvSpeed, tvLights;
+    private Button btnGearsPlus, btnGearsMinus, btnAutMan, btnLights, btnAccelerate;
+    public static View bumperLeft, bumperCenter, bumperRight;
 
     /**
      * OnCreate Method from Activity.
@@ -81,15 +85,10 @@ public class RemoteControlActivity extends AppCompatActivity
         }
         this.drivingModeManual = true;
         this.currentGear = STOPPED;
-        this.ligthsOn = false;
+        this.lightsOn = false;
         setContentView(gestureOverlayView);
         setViews();
     }
-
-    public static void writeData() {
-
-    }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -116,6 +115,11 @@ public class RemoteControlActivity extends AppCompatActivity
 
         if (prediction.score > 1.0 && prediction.name.length()>1) {
             Toast.makeText(this, prediction.name , Toast.LENGTH_SHORT).show();
+
+            String shapeString = shapeMapper(prediction.name);
+
+            if (shapeString != null)
+                UdpDatagramConstructor.setShape(shapeString);
         }
     }
 
@@ -123,9 +127,9 @@ public class RemoteControlActivity extends AppCompatActivity
     public void onSensorChanged(SensorEvent event) {
         if (event.sensor.getType()==Sensor.TYPE_ACCELEROMETER){
             double y = event.values[1];
-            int angle;
+            String angle;
             if (y < -6) {
-                angle = Constants.RemoteControl.ANGLE_LEFT_2;
+                angle = ANGLE_LEFT_2;
             } else if (-6 < y && y < -3) {
                 angle = ANGLE_LEFT_1;
             } else if (-3 < y && y < 3) {
@@ -135,9 +139,7 @@ public class RemoteControlActivity extends AppCompatActivity
             } else {
                 angle = ANGLE_RIGHT_2;
             }
-
-            //TODO: enviar al robot.
-
+            setAngleToTurn(angle);
         }
     }
 
@@ -146,8 +148,11 @@ public class RemoteControlActivity extends AppCompatActivity
 
     }
 
-    private void setViews() {
+    /**
+     *  PRIVATE METHODS
+     */
 
+    private void setViews() {
 
         tvTemperature = (TextView) findViewById(R.id.tv_temperature);
         btnGearsPlus = (Button) findViewById(R.id.button_gears_plus);
@@ -166,14 +171,26 @@ public class RemoteControlActivity extends AppCompatActivity
         btnGearsPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                currentGear++;
+                if (currentGear < MAX_GEAR) {
+                    currentGear++;
+                    if (currentGear >= 0)
+                        setSpeed("+" + currentGear.toString());
+                    else
+                        setSpeed(currentGear.toString());
+                }
             }
         });
 
         btnGearsMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                currentGear--;
+                if (currentGear > MIN_GEAR) {
+                    currentGear--;
+                    if (currentGear >= 0)
+                        setSpeed("+" + currentGear.toString());
+                    else
+                        setSpeed(currentGear.toString());
+                }
             }
         });
 
@@ -187,9 +204,32 @@ public class RemoteControlActivity extends AppCompatActivity
                 // riding in automatic and viceversa.
                 for (Button button : viewsToDeactivate)
                     button.setEnabled(drivingModeManual);
+
+                setDrivingMode(drivingModeManual ? MANUAL : AUTOMATIC);
             }
         });
 
+        btnLights.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                lightsOn = !lightsOn;
+                setLightsStatus(lightsOn ? LIGHTS_ON : LIGHTS_OFF);
+            }
+        });
 
+    }
+
+    private String shapeMapper(String name) {
+
+        switch (name) {
+            case TRIANGLE:
+                return TRIANGLE;
+            case CIRCLE:
+                return CIRCLE;
+            case SQUARE:
+                return SQUARE;
+            default:
+                return null;
+        }
     }
 }
