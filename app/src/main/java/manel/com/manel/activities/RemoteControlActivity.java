@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -53,6 +54,7 @@ public class RemoteControlActivity extends AppCompatActivity
     private Boolean drivingModeManual;
     private Integer currentGear;
     private Boolean lightsOn;
+    private Boolean accButtonPressed;
 
     // Views
     public static TextView tvTemperature, tvSpeed, tvLights;
@@ -86,6 +88,7 @@ public class RemoteControlActivity extends AppCompatActivity
         this.drivingModeManual = true;
         this.currentGear = STOPPED;
         this.lightsOn = false;
+        this.accButtonPressed = false;
         setContentView(gestureOverlayView);
         setViews();
     }
@@ -217,6 +220,20 @@ public class RemoteControlActivity extends AppCompatActivity
             }
         });
 
+        btnAccelerate.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_DOWN) {
+                    if (currentGear >= 0)
+                        setSpeed("+" + currentGear.toString());
+                    else
+                        setSpeed(currentGear.toString());
+                } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    UdpDatagramConstructor.setSpeed("+0");
+                }
+                return true;
+            }
+        });
     }
 
     private String shapeMapper(String name) {
