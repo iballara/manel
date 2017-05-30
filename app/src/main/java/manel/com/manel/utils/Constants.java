@@ -45,6 +45,7 @@ public class Constants {
             public static final String LIGTHS = "lig";
             public static final String SPEED = "vel";
             public static final String SHAPE = "shp";
+            public static final String ACC = "acc";
 
             public static ArrayList<String> getSendingKeys() {
                 List<String> keys = new ArrayList<>();
@@ -53,6 +54,7 @@ public class Constants {
                 keys.add(LIGTHS);
                 keys.add(SPEED);
                 keys.add(SHAPE);
+                keys.add(ACC);
                 return (ArrayList<String>) keys;
             }
         }

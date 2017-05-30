@@ -11,11 +11,17 @@ public class UdpDatagramConstructor {
     private final static String TRIANGLE = "Triangle";
     private final static String CIRCLE = "Circle";
     private final static String SQUARE = "Square";
-    private static String drivingMode;
-    private static String lightsStatus;
-    private static String angleToTurn;
-    private static String shape;
-    private static String speed;
+    private static String drivingMode = "";
+    private static String lightsStatus = "";
+    private static String angleToTurn = "";
+    private static String shape = "";
+    private static String speed = "";
+    private static String acc = "";
+
+    public static void setAcc(String acc) {
+        UdpDatagramConstructor.acc = acc;
+        createAndSendDatagram();
+    }
 
     public static void setDrivingMode(String drivingMode) {
         UdpDatagramConstructor.drivingMode = drivingMode;
@@ -51,7 +57,7 @@ public class UdpDatagramConstructor {
         dataToSend.put(Constants.KEYS.TO_SEND.ANGLE, angleToTurn);
         dataToSend.put(Constants.KEYS.TO_SEND.SHAPE, shape);
         dataToSend.put(Constants.KEYS.TO_SEND.SPEED, speed);
-
+        dataToSend.put(Constants.KEYS.TO_SEND.ACC, acc);
         String datagramToSend = UdpDatagramHelper.formatMessageToSend(dataToSend);
         CommunicationService.sendDatagram(datagramToSend);
     }

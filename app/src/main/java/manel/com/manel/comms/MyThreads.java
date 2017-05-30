@@ -14,6 +14,7 @@ import java.net.UnknownHostException;
 import manel.com.manel.activities.MainMenuActivity;
 
 import static java.net.InetAddress.*;
+import static manel.com.manel.activities.MainMenuActivity.uiHandler;
 import static manel.com.manel.comms.CommunicationService.BYTES_BUFFER;
 import static manel.com.manel.comms.CommunicationService.PORT;
 import static manel.com.manel.comms.CommunicationService.socket;
@@ -79,7 +80,7 @@ class MyThreads {
             System.out.println(message);
             if(message.length() > 0){
                 message1.obj = message;
-                MainMenuActivity.uiHandler.sendMessage(message1);
+                uiHandler.sendMessage(message1);
             }
             Looper.loop();
         }
