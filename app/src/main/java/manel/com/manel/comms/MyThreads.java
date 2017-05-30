@@ -88,7 +88,8 @@ class MyThreads {
 
     private static class MyTransmiterThread extends Thread {
 
-        public static final String INNER_TAG = "MyTransmiterThread";
+        private static final int TIME_BETWEEN_FRAMES = 1000;
+        static final String INNER_TAG = "MyTransmiterThread";
         static final String MANEL_IP = "192.168.0.0";
         static final int MANEL_PORT = 2370;
 
@@ -101,6 +102,7 @@ class MyThreads {
 
         private void sendUDPMessage() {
 
+            Looper.prepare();
             try {
                 byte[] message = datagramToSend.getBytes();
                 DatagramPacket packet = new DatagramPacket(
@@ -112,12 +114,9 @@ class MyThreads {
                 DatagramSocket dsocket = new DatagramSocket();
                 dsocket.send(packet);
                 dsocket.close();
-            } catch (UnknownHostException e) {
-                Log.e("Error", e.getMessage());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
+                Thread.sleep(TIME_BETWEEN_FRAMES);
+            } catch (IOException | InterruptedException e) { e.printStackTrace();}
+            Looper.loop();
         }
     }
 }
