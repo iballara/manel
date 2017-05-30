@@ -54,7 +54,6 @@ public class RemoteControlActivity extends AppCompatActivity
     private Boolean drivingModeManual;
     private Integer currentGear;
     private Boolean lightsOn;
-    private Boolean accButtonPressed;
 
     // Views
     public static TextView tvTemperature, tvSpeed, tvLights;
@@ -88,7 +87,6 @@ public class RemoteControlActivity extends AppCompatActivity
         this.drivingModeManual = true;
         this.currentGear = STOPPED;
         this.lightsOn = false;
-        this.accButtonPressed = false;
         setContentView(gestureOverlayView);
         setViews();
     }
