@@ -6,7 +6,9 @@
     <string name="_20_c">20 ºC</string>
     <string name="gears_plus">GEAR +</string>
     <string name="gears_minus">GEAR -</string>
-    <string name="_10_km_h">10 km/h</string>
+    <string name="gear_0">Gear: 0</string>
     <string name="labyrinth">LABYRINTH</string>
     <string name="lightsOff">OFF</string>
+    <string name="log">LOG:</string>
+    <string name="accelerate">ACCELERATE</string>
 </resources>

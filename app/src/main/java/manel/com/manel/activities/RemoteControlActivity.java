@@ -6,6 +6,7 @@ import android.gesture.GestureLibraries;
 import android.gesture.GestureLibrary;
 import android.gesture.GestureOverlayView;
 import android.gesture.Prediction;
+import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -92,16 +93,25 @@ public class RemoteControlActivity extends AppCompatActivity
         this.currentGear = 0;
         this.lightsOn = false;
         this.isButtonPressed = false;
-        setDrivingMode(MANUAL);
-        setAcc(STOPPED);
-        setSpeed(DEFAULT_SPEED);
-        setLightsStatus(LIGHTS_OFF);
-        setShape(DEFAULT_SHAPE);
+        sendDrivingMode(MANUAL);
+        sendAcc(STOPPED);
+        sendSpeed(DEFAULT_SPEED);
+        sendLightsStatus(LIGHTS_OFF);
+        sendShape(DEFAULT_SHAPE);
         setContentView(gestureOverlayView);
         setViews();
-        startService(new Intent(this, CommunicationService.class));
+        if (!CommunicationService.isServiceRunning) {
+            startService(new Intent(this, CommunicationService.class));
+        }
     }
 
+    /**
+     * This method is executed when we click the arrow to
+     * go to the parent activity.
+     *
+     * @param item MenuItem
+     * @return boolean
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -113,12 +123,22 @@ public class RemoteControlActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * The regular onBackPressed from Activity class.
+     * It just finishes this activity.
+     */
     @Override
     public void onBackPressed() {
         super.onBackPressed();
         finish();
     }
 
+    /**
+     * It detects the gesture the user has drawn on the screen.
+     *
+     * @param overlay GestureOverlayView
+     * @param gesture Gesture
+     */
     @Override
     public void onGesturePerformed(GestureOverlayView overlay, Gesture gesture) {
 
@@ -131,10 +151,18 @@ public class RemoteControlActivity extends AppCompatActivity
             String shapeString = shapeMapper(prediction.name);
 
             if (shapeString != null)
-                UdpDatagramConstructor.setShape(shapeString);
+                UdpDatagramConstructor.sendShape(shapeString);
         }
     }
 
+    /**
+     * This method will be executed everytime that the values
+     * of the accelerometer of the smartphone change.
+     *
+     * In this case, it also calculates the angle the robot will turn.
+     *
+     * @param event SensorEvent
+     */
     @Override
     public void onSensorChanged(SensorEvent event) {
         if (event.sensor.getType()==Sensor.TYPE_ACCELEROMETER){
@@ -151,7 +179,54 @@ public class RemoteControlActivity extends AppCompatActivity
             } else {
                 angle = ANGLE_RIGHT_2;
             }
-            setAngleToTurn(angle);
+            sendAngleToTurn(angle);
+        }
+    }
+
+    public static void setTvTemperature(String value) {
+        if (tvTemperature != null) {
+            tvTemperature.setText(value);
+        }
+    }
+
+    public static void setTvSpeed(String value) {
+        if (tvSpeed != null) {
+            tvSpeed.setText("Gear: " + value);
+        }
+    }
+
+    public static void setTvLights(String value) {
+        if (tvLights != null) {
+            if (value.equals("0"))
+                tvLights.setText("Ligths: OFF");
+            else
+                tvLights.setText("Ligths: ON");
+        }
+    }
+
+    public static void setBumperLeft(String value) {
+        if (bumperLeft != null) {
+            if (value.equals("0"))
+                bumperLeft.setBackgroundColor(Color.CYAN);
+            else
+                bumperLeft.setBackgroundColor(Color.RED);
+        }
+    }
+    public static void setBumperCenter(String value) {
+        if (bumperCenter != null) {
+            if (value.equals("0"))
+                bumperCenter.setBackgroundColor(Color.CYAN);
+            else
+                bumperCenter.setBackgroundColor(Color.RED);
+        }
+    }
+
+    public static void setBumperRight(String value) {
+        if (bumperRight != null) {
+            if (value.equals("0"))
+                bumperRight.setBackgroundColor(Color.CYAN);
+            else
+                bumperRight.setBackgroundColor(Color.RED);
         }
     }
 
@@ -160,10 +235,14 @@ public class RemoteControlActivity extends AppCompatActivity
 
     }
 
-    /**
-     *  PRIVATE METHODS
-     */
+    /* *********************
+    **  PRIVATE METHODS
+    *************************/
 
+    /**
+     * Method for initializing the views and setting the
+     * listeners.
+     */
     private void setViews() {
 
         tvTemperature = (TextView) findViewById(R.id.tv_temperature);
@@ -186,6 +265,9 @@ public class RemoteControlActivity extends AppCompatActivity
             public void onClick(View view) {
                 if (currentGear < MAX_GEAR) {
                     currentGear++;
+                    setTvSpeed(currentGear.toString());
+                    // If the accelerate button is not pressed, the gear will
+                    // increase but the robot won't move.
                     if (isButtonPressed)
                         prepareSpeedToSend(currentGear);
                     else
@@ -199,6 +281,7 @@ public class RemoteControlActivity extends AppCompatActivity
             public void onClick(View view) {
                 if (currentGear > MIN_GEAR) {
                     currentGear--;
+                    setTvSpeed(currentGear.toString());
                     if (isButtonPressed)
                         prepareSpeedToSend(currentGear);
                     else
@@ -211,6 +294,7 @@ public class RemoteControlActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
 
+                // We change the driving mode
                 drivingModeManual = !drivingModeManual;
 
                 // We deactivate some buttons if we are
@@ -218,12 +302,14 @@ public class RemoteControlActivity extends AppCompatActivity
                 for (Button button : viewsToDeactivate)
                     button.setEnabled(drivingModeManual);
 
+                // If we are driving in automatic mode,
+                // we will send speed as 0
                 if (!drivingModeManual)
-                    setSpeed(DEFAULT_SPEED);
+                    sendSpeed(DEFAULT_SPEED);
                  else
                     prepareSpeedToSend(0);
 
-                setDrivingMode(drivingModeManual ? MANUAL : AUTOMATIC);
+                sendDrivingMode(drivingModeManual ? MANUAL : AUTOMATIC);
             }
         });
 
@@ -231,7 +317,7 @@ public class RemoteControlActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 lightsOn = !lightsOn;
-                setLightsStatus(lightsOn ? LIGHTS_ON : LIGHTS_OFF);
+                sendLightsStatus(lightsOn ? LIGHTS_ON : LIGHTS_OFF);
             }
         });
 
@@ -250,14 +336,27 @@ public class RemoteControlActivity extends AppCompatActivity
         });
     }
 
+    /**
+     * Particular method for adding the "+" symbol if the currentGear
+     * is >= 0, for sending tho the robot.
+     *
+     * @param internalSpeed Integer
+     */
     private void prepareSpeedToSend(Integer internalSpeed) {
         if (internalSpeed >= 0){
-            setSpeed("+" + internalSpeed);
+            sendSpeed("+" + internalSpeed);
         } else {
-            setSpeed(internalSpeed.toString());
+            sendSpeed(internalSpeed.toString());
         }
     }
 
+    /**
+     * This method deduces what letter to send depending
+     * on the drawn shape.
+     *
+     * @param name String
+     * @return String with the symbol of the shape to send.
+     */
     private String shapeMapper(String name) {
 
         switch (name.charAt(0)) {

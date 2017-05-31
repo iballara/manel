@@ -1,6 +1,5 @@
 package manel.com.manel.comms;
 
-import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
 
@@ -9,7 +8,7 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.SocketException;
 
-import static java.net.InetAddress.*;
+import static java.net.InetAddress.getByName;
 import static manel.com.manel.activities.MainMenuActivity.uiHandler;
 import static manel.com.manel.comms.CommunicationService.BYTES_BUFFER;
 import static manel.com.manel.comms.CommunicationService.PHONE_PORT;

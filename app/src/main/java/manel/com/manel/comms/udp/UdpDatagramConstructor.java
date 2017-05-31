@@ -2,18 +2,15 @@ package manel.com.manel.comms.udp;
 
 import java.util.HashMap;
 
-import manel.com.manel.activities.RemoteControlActivity;
 import manel.com.manel.comms.CommunicationService;
 import manel.com.manel.utils.Constants;
 
 import static manel.com.manel.activities.RemoteControlActivity.DEFAULT_SHAPE;
+import static manel.com.manel.comms.CommunicationService.sendDatagram;
 
 public class UdpDatagramConstructor {
 
-    private final static int DATA_SIZE = 5;
-    private final static String TRIANGLE = "Triangle";
-    private final static String CIRCLE = "Circle";
-    private final static String SQUARE = "Square";
+    private final static int DATA_SIZE = 6;
     private static String drivingMode = "";
     private static String lightsStatus = "";
     private static String angleToTurn = "";
@@ -21,33 +18,33 @@ public class UdpDatagramConstructor {
     private static String speed = "";
     private static String acc = "";
 
-    public static void setAcc(String acc) {
+    public static void sendAcc(String acc) {
         UdpDatagramConstructor.acc = acc;
         createAndSendDatagram();
     }
 
-    public static void setDrivingMode(String drivingMode) {
+    public static void sendDrivingMode(String drivingMode) {
         UdpDatagramConstructor.drivingMode = drivingMode;
         createAndSendDatagram();
     }
 
-    public static void setLightsStatus(String lightsStatus) {
+    public static void sendLightsStatus(String lightsStatus) {
         UdpDatagramConstructor.lightsStatus = lightsStatus;
         createAndSendDatagram();
     }
 
-    public static void setAngleToTurn(String angleToTurn) {
+    public static void sendAngleToTurn(String angleToTurn) {
         UdpDatagramConstructor.angleToTurn = angleToTurn;
         createAndSendDatagram();
     }
 
-    public static void setShape(String shape) {
+    public static void sendShape(String shape) {
         UdpDatagramConstructor.shape = shape;
         createAndSendDatagram();
         UdpDatagramConstructor.shape = DEFAULT_SHAPE;
     }
 
-    public static void setSpeed(String speed) {
+    public static void sendSpeed(String speed) {
         UdpDatagramConstructor.speed = speed;
         createAndSendDatagram();
     }
@@ -62,6 +59,6 @@ public class UdpDatagramConstructor {
         dataToSend.put(Constants.KEYS.TO_SEND.SPEED, speed);
         dataToSend.put(Constants.KEYS.TO_SEND.ACC, acc);
         String datagramToSend = UdpDatagramHelper.formatMessageToSend(dataToSend);
-        CommunicationService.sendDatagram(datagramToSend);
+        sendDatagram(datagramToSend);
     }
 }

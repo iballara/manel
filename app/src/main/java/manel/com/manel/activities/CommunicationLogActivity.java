@@ -14,7 +14,7 @@ import manel.com.manel.comms.CommunicationService;
  * This Activity is in charge of Logging the UDP packets received.
  *
  * @author  Ignasi Ballara, Joaquim Porte, Arnau Tienda
- * @version 1.0
+ * @version 2.0
  */
 public class CommunicationLogActivity extends AppCompatActivity {
 
@@ -32,9 +32,19 @@ public class CommunicationLogActivity extends AppCompatActivity {
         ActionBar actBar = getSupportActionBar();
         actBar.setHomeButtonEnabled(true);
         textView = (TextView) findViewById(R.id.tv_log);
-        textView.setText("LOG:");
+        textView.setText(R.string.log);
+        if (!CommunicationService.isServiceRunning) {
+            startService(new Intent(this, CommunicationService.class));
+        }
     }
 
+    /**
+     * This method is executed when we click the arrow to
+     * go to the parent activity.
+     *
+     * @param item MenuItem
+     * @return boolean
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -46,7 +56,12 @@ public class CommunicationLogActivity extends AppCompatActivity {
         }
     }
 
-    public static void post(String message) {
-        textView.append("\n" + message);
+    /**
+     * Method for adding a new row to the log register.
+     * @param message String
+     */
+    public static void addLogRow(String message) {
+        if (textView != null)
+            textView.append("\n" + message);
     }
 }

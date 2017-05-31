@@ -1,4 +1,4 @@
-package manel.com.manel.utils;
+package manel.com.manel.utils.ui;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

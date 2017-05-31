@@ -1,6 +1,5 @@
 package manel.com.manel.activities;
 
-import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,18 +13,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import manel.com.manel.R;
-import manel.com.manel.comms.CommunicationService;
 import manel.com.manel.comms.udp.UdpDatagramDeconstructor;
-import manel.com.manel.comms.udp.UdpDatagramHelper;
-import manel.com.manel.utils.OverviewCardsAdapter;
+import manel.com.manel.utils.ui.OverviewCardsAdapter;
 
 import static manel.com.manel.comms.udp.UdpDatagramHelper.parseReceivedMessage;
 
 /**
  * Main Activity. It is just a menu in order to decide what to do next.
+ * It show the four main options and working modes of the app.
  *
  * @author  Ignasi Ballara, Joaquim Porte, Arnau Tienda
- * @version 1.0
+ * @version 2.0
  */
 public class MainMenuActivity extends AppCompatActivity{
 
@@ -48,19 +46,16 @@ public class MainMenuActivity extends AppCompatActivity{
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
+                CommunicationLogActivity.addLogRow((String) msg.obj);
                 HashMap<String, String> data = parseReceivedMessage((String) msg.obj);
                 UdpDatagramDeconstructor.receiveData(data);
             }
         };
     }
 
-    public void runUi(Runnable runnable){
-        this.runOnUiThread(runnable);
-    }
-
-    /*
-        PRIVATE METHODS
-     */
+    /* *************************
+    **    PRIVATE METHODS
+    ****************************/
 
     /**
      * Sets the initial configuration of the views.

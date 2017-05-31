@@ -1,16 +1,16 @@
 package manel.com.manel.comms.udp;
 
-import android.graphics.Color;
-import android.graphics.Paint;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import manel.com.manel.R;
-import manel.com.manel.activities.AccelerometerActivity;
-import manel.com.manel.activities.RemoteControlActivity;
-import manel.com.manel.utils.Constants;
-
+import static manel.com.manel.activities.AccelerometerActivity.printAccX;
+import static manel.com.manel.activities.AccelerometerActivity.printAccY;
+import static manel.com.manel.activities.AccelerometerActivity.printAccZ;
+import static manel.com.manel.activities.RemoteControlActivity.setBumperCenter;
+import static manel.com.manel.activities.RemoteControlActivity.setBumperLeft;
+import static manel.com.manel.activities.RemoteControlActivity.setBumperRight;
+import static manel.com.manel.activities.RemoteControlActivity.setTvLights;
+import static manel.com.manel.activities.RemoteControlActivity.setTvTemperature;
 import static manel.com.manel.utils.Constants.KEYS.TO_RECEIVE.ACC_X;
 import static manel.com.manel.utils.Constants.KEYS.TO_RECEIVE.ACC_Y;
 import static manel.com.manel.utils.Constants.KEYS.TO_RECEIVE.ACC_Z;
@@ -35,40 +35,28 @@ public class UdpDatagramDeconstructor {
 
         switch (key) {
             case TEMP:
-                RemoteControlActivity.tvTemperature.setText(value);
+                setTvTemperature(value + " ºC");
                 break;
             case LIGHTS:
-                if (value.equals("0"))
-                    RemoteControlActivity.tvLights.setText("Ligths: OFF");
-                else
-                    RemoteControlActivity.tvLights.setText("Ligths: ON");
+                setTvLights(value);
                 break;
             case BUMPER_LEFT:
-                if (value.equals("0"))
-                    RemoteControlActivity.bumperLeft.setBackgroundColor(Color.CYAN);
-                else
-                    RemoteControlActivity.bumperLeft.setBackgroundColor(Color.RED);
+                setBumperLeft(value);
                 break;
             case BUMPER_RIGHT:
-                if (value.equals("0"))
-                    RemoteControlActivity.bumperRight.setBackgroundColor(Color.CYAN);
-                else
-                    RemoteControlActivity.bumperRight.setBackgroundColor(Color.RED);
+                setBumperRight(value);
                 break;
             case ULTRASOUND:
-                if (value.equals("0"))
-                    RemoteControlActivity.bumperCenter.setBackgroundColor(Color.CYAN);
-                else
-                    RemoteControlActivity.bumperCenter.setBackgroundColor(Color.RED);
+                setBumperCenter(value);
                 break;
             case ACC_X:
-                AccelerometerActivity.printAccX(Double.valueOf(value));
+                printAccX(Double.valueOf(value));
                 break;
             case ACC_Y:
-                AccelerometerActivity.printAccY(Double.valueOf(value));
+                printAccY(Double.valueOf(value));
                 break;
             case ACC_Z:
-                AccelerometerActivity.printAccZ(Double.valueOf(value));
+                printAccZ(Double.valueOf(value));
                 break;
         }
 
