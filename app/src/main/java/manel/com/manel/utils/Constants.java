@@ -3,13 +3,19 @@ package manel.com.manel.utils;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The scope of this class is just being a constants repository,
+ * for all the different constants we will use in this project.
+ *
+ * @author  Ignasi Ballara, Joaquim Porte, Arnau Tienda
+ * @version 2.0
+ */
 public class Constants {
     
     public static class RemoteControl{
 
         // Direction.
         public static final String STOPPED = "0";
-        public static final String FORWARD = "1";
 
         // Angle detected from accelerometer.
         public static final String ANGLE_ZERO = "00";
@@ -82,5 +88,4 @@ public class Constants {
             }
         }
     }
-
 }
