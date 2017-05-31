@@ -44,7 +44,6 @@ public class MainMenuActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
         setViews();
-        startService(new Intent(this, CommunicationService.class));
         uiHandler = new Handler(){
             @Override
             public void handleMessage(Message msg) {

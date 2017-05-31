@@ -47,6 +47,11 @@
             android:id="@+id/btn_light_control"
             android:layout_width="wrap_content"
             android:text="@string/lights" />
+
+        <TextView
+            android:id="@+id/tv_lights"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/lightsOff"/>
     </TableRow>
 
     <TableRow

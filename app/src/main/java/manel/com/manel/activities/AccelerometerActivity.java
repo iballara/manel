@@ -70,15 +70,18 @@ public class AccelerometerActivity extends AppCompatActivity //implements Sensor
     }
 
     public static void printAccX(double x) {
-        tvX.setText(String.format("X: %s", x));
+        if (tvX != null)
+            tvX.setText(String.format("X: %s", x));
     }
 
     public static void printAccY(double y) {
-        tvY.setText(String.format("Y: %s", y));
+        if (tvY != null)
+            tvY.setText(String.format("Y: %s", y));
     }
 
     public static void printAccZ(double z) {
-        tvZ.setText(String.format("Z: %s", z));
+        if (tvX != null)
+            tvZ.setText(String.format("Z: %s", z));
     }
 
 //    public static void printACCdata(double x, double y, double z){

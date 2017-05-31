@@ -54,31 +54,33 @@ class MyThreads {
          */
         private void receiveUDPMessage(){
 
-            Message message1 = new Message();
-            Looper.prepare();
-            byte[] recvBuf = new byte[BYTES_BUFFER];
-            System.out.println("MyReceivingThread run method is running.");
+            while (!this.isInterrupted()) {
 
-            if (socket == null || socket.isClosed()){
+                Message message1 = new Message();
+                byte[] recvBuf = new byte[BYTES_BUFFER];
+                System.out.println("MyReceivingThread run method is running.");
+
+                if (socket == null || socket.isClosed()){
+                    try {
+                        socket = new DatagramSocket(PHONE_PORT);
+                    } catch (SocketException e) {
+                        e.printStackTrace();
+                    }
+                }
+                DatagramPacket packet = new DatagramPacket(recvBuf, recvBuf.length);
                 try {
-                    socket = new DatagramSocket(PHONE_PORT);
-                } catch (SocketException e) {
+                    socket.receive(packet);
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
+                final String message = new String(packet.getData()).trim();
+                Log.i("Packet received: ", message);
+                System.out.println(message);
+                if(message.length() > 0){
+                    message1.obj = message;
+                    uiHandler.sendMessage(message1);
+                }
             }
-            DatagramPacket packet = new DatagramPacket(recvBuf, recvBuf.length);
-            try {
-                socket.receive(packet);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            final String message = new String(packet.getData()).trim();
-            System.out.println(message);
-            if(message.length() > 0){
-                message1.obj = message;
-                uiHandler.sendMessage(message1);
-            }
-            Looper.loop();
         }
     }
 
@@ -103,7 +105,7 @@ class MyThreads {
                     if (datagramToSend != null) {
                         System.out.println("MyTransmiterThread run method is running.");
                         byte[] message = datagramToSend.getBytes();
-                        Log.i("Packet: ", datagramToSend);
+                        Log.i("Packet sent: ", datagramToSend);
                         DatagramPacket packet = new DatagramPacket(
                                 message,
                                 message.length,
@@ -115,7 +117,7 @@ class MyThreads {
                         dsocket.close();
                         Thread.sleep(TIME_BETWEEN_FRAMES);
                     } else {
-                        Log.i("Packet: ", "is null");
+                        Log.i("Packet sent: ", "is null");
                     }
                 } catch (IOException | InterruptedException e) {
                     e.printStackTrace();

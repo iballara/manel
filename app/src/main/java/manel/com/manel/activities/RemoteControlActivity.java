@@ -1,5 +1,6 @@
 package manel.com.manel.activities;
 
+import android.content.Intent;
 import android.gesture.Gesture;
 import android.gesture.GestureLibraries;
 import android.gesture.GestureLibrary;
@@ -23,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import manel.com.manel.R;
+import manel.com.manel.comms.CommunicationService;
 import manel.com.manel.comms.udp.UdpDatagramConstructor;
 
 import static java.util.Arrays.asList;
@@ -97,6 +99,7 @@ public class RemoteControlActivity extends AppCompatActivity
         setShape(DEFAULT_SHAPE);
         setContentView(gestureOverlayView);
         setViews();
+        startService(new Intent(this, CommunicationService.class));
     }
 
     @Override
@@ -173,6 +176,7 @@ public class RemoteControlActivity extends AppCompatActivity
         bumperCenter = findViewById(R.id.bumper_collision);
         bumperRight = findViewById(R.id.bumper_right);
         btnAccelerate = (Button) findViewById(R.id.acc_button);
+        tvLights = (TextView) findViewById(R.id.tv_lights);
 
         final List<Button> viewsToDeactivate = asList(btnGearsPlus, btnGearsMinus,
                 btnAccelerate, btnLights);

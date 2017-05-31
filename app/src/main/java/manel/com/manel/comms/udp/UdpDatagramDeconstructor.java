@@ -33,36 +33,43 @@ public class UdpDatagramDeconstructor {
 
     private static void updateValue(String key, String value) {
 
-        if (key.equals(TEMP)) {
-            RemoteControlActivity.tvTemperature.setText(value);
-        } else if (key.equals(LIGHTS)) {
-
-            if (value.equals("0"))
-                RemoteControlActivity.tvLights.setText("Ligths: OFF");
-            else
-                RemoteControlActivity.tvLights.setText("Ligths: ON");
-
-        } else if (key.equals(BUMPER_LEFT)) {
-            if (value.equals("0"))
-                RemoteControlActivity.bumperLeft.setBackgroundColor(Color.WHITE);
-            else
-                RemoteControlActivity.bumperLeft.setBackgroundColor(Color.BLUE);
-        } else if (key.equals(BUMPER_RIGHT)) {
-            if (value.equals("0"))
-                RemoteControlActivity.bumperLeft.setBackgroundColor(Color.WHITE);
-            else
-                RemoteControlActivity.bumperLeft.setBackgroundColor(Color.BLUE);
-        } else if (key.equals(ULTRASOUND)) {
-            if (value.equals("0"))
-                RemoteControlActivity.bumperLeft.setBackgroundColor(Color.WHITE);
-            else
-                RemoteControlActivity.bumperLeft.setBackgroundColor(Color.BLUE);
-        } else if (key.equals(ACC_X)) {
-
-        } else if (key.equals(ACC_Y)) {
-
-        } else if (key.equals(ACC_Z)) {
-
+        switch (key) {
+            case TEMP:
+                RemoteControlActivity.tvTemperature.setText(value);
+                break;
+            case LIGHTS:
+                if (value.equals("0"))
+                    RemoteControlActivity.tvLights.setText("Ligths: OFF");
+                else
+                    RemoteControlActivity.tvLights.setText("Ligths: ON");
+                break;
+            case BUMPER_LEFT:
+                if (value.equals("0"))
+                    RemoteControlActivity.bumperLeft.setBackgroundColor(Color.CYAN);
+                else
+                    RemoteControlActivity.bumperLeft.setBackgroundColor(Color.RED);
+                break;
+            case BUMPER_RIGHT:
+                if (value.equals("0"))
+                    RemoteControlActivity.bumperRight.setBackgroundColor(Color.CYAN);
+                else
+                    RemoteControlActivity.bumperRight.setBackgroundColor(Color.RED);
+                break;
+            case ULTRASOUND:
+                if (value.equals("0"))
+                    RemoteControlActivity.bumperCenter.setBackgroundColor(Color.CYAN);
+                else
+                    RemoteControlActivity.bumperCenter.setBackgroundColor(Color.RED);
+                break;
+            case ACC_X:
+                AccelerometerActivity.printAccX(Double.valueOf(value));
+                break;
+            case ACC_Y:
+                AccelerometerActivity.printAccY(Double.valueOf(value));
+                break;
+            case ACC_Z:
+                AccelerometerActivity.printAccZ(Double.valueOf(value));
+                break;
         }
 
     }
