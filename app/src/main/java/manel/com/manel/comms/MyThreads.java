@@ -7,23 +7,19 @@ import android.util.Log;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-import java.net.InetAddress;
 import java.net.SocketException;
-import java.net.UnknownHostException;
-
-import manel.com.manel.activities.MainMenuActivity;
 
 import static java.net.InetAddress.*;
 import static manel.com.manel.activities.MainMenuActivity.uiHandler;
 import static manel.com.manel.comms.CommunicationService.BYTES_BUFFER;
-import static manel.com.manel.comms.CommunicationService.PORT;
+import static manel.com.manel.comms.CommunicationService.PHONE_PORT;
 import static manel.com.manel.comms.CommunicationService.socket;
 
 class MyThreads {
 
     private static MyTransmiterThread txThread;
     private static MyReceivingThread rxThread;
-    static String datagramToSend;
+    static String datagramToSend = "";
 
     static void runRxAndTxThreads() {
         txThread = new MyTransmiterThread();
@@ -65,7 +61,7 @@ class MyThreads {
 
             if (socket == null || socket.isClosed()){
                 try {
-                    socket = new DatagramSocket(PORT);
+                    socket = new DatagramSocket(PHONE_PORT);
                 } catch (SocketException e) {
                     e.printStackTrace();
                 }
@@ -88,10 +84,10 @@ class MyThreads {
 
     private static class MyTransmiterThread extends Thread {
 
-        private static final int TIME_BETWEEN_FRAMES = 1000;
+        private static final int TIME_BETWEEN_FRAMES = 300;
         static final String INNER_TAG = "MyTransmiterThread";
-        static final String MANEL_IP = "192.168.0.0";
-        static final int MANEL_PORT = 2370;
+        static final String MANEL_IP = "192.168.0.255";
+        static final int MANEL_PORT = 2390;
 
         @Override
         public void run() {
@@ -102,21 +98,29 @@ class MyThreads {
 
         private void sendUDPMessage() {
 
-            Looper.prepare();
-            try {
-                byte[] message = datagramToSend.getBytes();
-                DatagramPacket packet = new DatagramPacket(
-                        message,
-                        message.length,
-                        getByName(MANEL_IP),
-                        MANEL_PORT
-                );
-                DatagramSocket dsocket = new DatagramSocket();
-                dsocket.send(packet);
-                dsocket.close();
-                Thread.sleep(TIME_BETWEEN_FRAMES);
-            } catch (IOException | InterruptedException e) { e.printStackTrace();}
-            Looper.loop();
+            while (!this.isInterrupted()) {
+                try {
+                    if (datagramToSend != null) {
+                        System.out.println("MyTransmiterThread run method is running.");
+                        byte[] message = datagramToSend.getBytes();
+                        Log.i("Packet: ", datagramToSend);
+                        DatagramPacket packet = new DatagramPacket(
+                                message,
+                                message.length,
+                                getByName(MANEL_IP),
+                                MANEL_PORT
+                        );
+                        DatagramSocket dsocket = new DatagramSocket();
+                        dsocket.send(packet);
+                        dsocket.close();
+                        Thread.sleep(TIME_BETWEEN_FRAMES);
+                    } else {
+                        Log.i("Packet: ", "is null");
+                    }
+                } catch (IOException | InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 }

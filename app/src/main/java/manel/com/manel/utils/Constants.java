@@ -8,9 +8,8 @@ public class Constants {
     public static class RemoteControl{
 
         // Direction.
-        public static final int STOPPED = 0;
-        public static final int FORWARD = 1;
-        public static final int BACKWARD = -1;
+        public static final String STOPPED = "0";
+        public static final String FORWARD = "1";
 
         // Angle detected from accelerometer.
         public static final String ANGLE_ZERO = "00";

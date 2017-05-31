@@ -1,5 +1,6 @@
 package manel.com.manel.activities;
 
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import manel.com.manel.R;
+import manel.com.manel.comms.CommunicationService;
 import manel.com.manel.comms.udp.UdpDatagramDeconstructor;
 import manel.com.manel.comms.udp.UdpDatagramHelper;
 import manel.com.manel.utils.OverviewCardsAdapter;
@@ -42,6 +44,7 @@ public class MainMenuActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
         setViews();
+        startService(new Intent(this, CommunicationService.class));
         uiHandler = new Handler(){
             @Override
             public void handleMessage(Message msg) {

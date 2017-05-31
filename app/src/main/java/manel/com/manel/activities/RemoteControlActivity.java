@@ -20,7 +20,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import manel.com.manel.R;
@@ -50,6 +49,9 @@ import static manel.com.manel.utils.Constants.RemoteControl.TRIANGLE;
 public class RemoteControlActivity extends AppCompatActivity
         implements GestureOverlayView.OnGesturePerformedListener, SensorEventListener {
 
+    private static final String DEFAULT_SPEED = "+0";
+    public static final String DEFAULT_SHAPE = "0";
+    private static Boolean isButtonPressed;
     private GestureLibrary gestureLib;
     private Boolean drivingModeManual;
     private Integer currentGear;
@@ -85,8 +87,14 @@ public class RemoteControlActivity extends AppCompatActivity
             finish();
         }
         this.drivingModeManual = true;
-        this.currentGear = STOPPED;
+        this.currentGear = 0;
         this.lightsOn = false;
+        this.isButtonPressed = false;
+        setDrivingMode(MANUAL);
+        setAcc(STOPPED);
+        setSpeed(DEFAULT_SPEED);
+        setLightsStatus(LIGHTS_OFF);
+        setShape(DEFAULT_SHAPE);
         setContentView(gestureOverlayView);
         setViews();
     }
@@ -174,10 +182,10 @@ public class RemoteControlActivity extends AppCompatActivity
             public void onClick(View view) {
                 if (currentGear < MAX_GEAR) {
                     currentGear++;
-                    if (currentGear >= 0)
-                        setSpeed("+" + currentGear.toString());
+                    if (isButtonPressed)
+                        prepareSpeedToSend(currentGear);
                     else
-                        setSpeed(currentGear.toString());
+                        prepareSpeedToSend(0);
                 }
             }
         });
@@ -187,10 +195,10 @@ public class RemoteControlActivity extends AppCompatActivity
             public void onClick(View view) {
                 if (currentGear > MIN_GEAR) {
                     currentGear--;
-                    if (currentGear >= 0)
-                        setSpeed("+" + currentGear.toString());
+                    if (isButtonPressed)
+                        prepareSpeedToSend(currentGear);
                     else
-                        setSpeed(currentGear.toString());
+                        prepareSpeedToSend(0);
                 }
             }
         });
@@ -205,6 +213,11 @@ public class RemoteControlActivity extends AppCompatActivity
                 // riding in automatic and viceversa.
                 for (Button button : viewsToDeactivate)
                     button.setEnabled(drivingModeManual);
+
+                if (!drivingModeManual)
+                    setSpeed(DEFAULT_SPEED);
+                 else
+                    prepareSpeedToSend(0);
 
                 setDrivingMode(drivingModeManual ? MANUAL : AUTOMATIC);
             }
@@ -222,26 +235,33 @@ public class RemoteControlActivity extends AppCompatActivity
             @Override
             public boolean onTouch(View view, MotionEvent event) {
                 if(event.getAction() == MotionEvent.ACTION_DOWN) {
-                    if (currentGear >= 0)
-                        setSpeed("+" + currentGear.toString());
-                    else
-                        setSpeed(currentGear.toString());
+                    prepareSpeedToSend(currentGear);
+                    isButtonPressed = true;
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                    UdpDatagramConstructor.setSpeed("+0");
+                    prepareSpeedToSend(0);
+                    isButtonPressed = false;
                 }
                 return true;
             }
         });
     }
 
+    private void prepareSpeedToSend(Integer internalSpeed) {
+        if (internalSpeed >= 0){
+            setSpeed("+" + internalSpeed);
+        } else {
+            setSpeed(internalSpeed.toString());
+        }
+    }
+
     private String shapeMapper(String name) {
 
-        switch (name) {
-            case TRIANGLE:
+        switch (name.charAt(0)) {
+            case 'T':
                 return TRIANGLE;
-            case CIRCLE:
+            case 'C':
                 return CIRCLE;
-            case SQUARE:
+            case 'S':
                 return SQUARE;
             default:
                 return null;

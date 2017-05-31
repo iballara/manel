@@ -21,8 +21,8 @@ import static manel.com.manel.comms.MyThreads.runRxAndTxThreads;
  */
 public class CommunicationService extends Service {
 
-    private final static String LOCAL_IP = "192.168.43.105";
-    final static int PORT =  53056;
+    public final static String LOCAL_IP = "192.168.0.105";
+    final static int PHONE_PORT =  58723;
     static final int BYTES_BUFFER = 10000;
     public static Boolean isServiceRunning = false;
 
@@ -41,15 +41,15 @@ public class CommunicationService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Toast.makeText(this, "Service Started", Toast.LENGTH_LONG).show();
-        runRxAndTxThreads();
         try {
             localAddress = InetAddress.getByName(LOCAL_IP);
-            socket = new DatagramSocket(PORT, localAddress);
+            socket = new DatagramSocket(PHONE_PORT, localAddress);
         } catch (UnknownHostException | SocketException e) {
             e.printStackTrace();
         }
+        runRxAndTxThreads();
         isServiceRunning = true;
+        Toast.makeText(this, "Service Started", Toast.LENGTH_LONG).show();
         return Service.START_STICKY;
     }
 

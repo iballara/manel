@@ -61,6 +61,7 @@ public class AccelerometerActivity extends AppCompatActivity //implements Sensor
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
+                this.finish();
                 UdpDatagramConstructor.setAcc(ACC_OFF);
                 return true;
             default:
