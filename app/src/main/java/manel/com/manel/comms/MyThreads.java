@@ -8,8 +8,11 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.SocketException;
 
+import manel.com.manel.comms.udp.UdpDatagramConstructor;
+
 import static java.net.InetAddress.getByName;
 import static manel.com.manel.activities.MainMenuActivity.uiHandler;
+import static manel.com.manel.activities.RemoteControlActivity.DEFAULT_SHAPE;
 import static manel.com.manel.comms.CommunicationService.BYTES_BUFFER;
 import static manel.com.manel.comms.CommunicationService.PHONE_PORT;
 import static manel.com.manel.comms.CommunicationService.socket;
@@ -115,6 +118,7 @@ class MyThreads {
                         dsocket.send(packet);
                         dsocket.close();
                         Thread.sleep(TIME_BETWEEN_FRAMES);
+                        UdpDatagramConstructor.shape = DEFAULT_SHAPE;
                     } else {
                         Log.i("Packet sent: ", "is null");
                     }

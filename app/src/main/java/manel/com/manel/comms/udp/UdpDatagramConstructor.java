@@ -2,10 +2,8 @@ package manel.com.manel.comms.udp;
 
 import java.util.HashMap;
 
-import manel.com.manel.comms.CommunicationService;
 import manel.com.manel.utils.Constants;
 
-import static manel.com.manel.activities.RemoteControlActivity.DEFAULT_SHAPE;
 import static manel.com.manel.comms.CommunicationService.sendDatagram;
 
 public class UdpDatagramConstructor {
@@ -14,7 +12,7 @@ public class UdpDatagramConstructor {
     private static String drivingMode = "";
     private static String lightsStatus = "";
     private static String angleToTurn = "";
-    private static String shape = "";
+    public static String shape = "";
     private static String speed = "";
     private static String acc = "";
 
@@ -41,7 +39,6 @@ public class UdpDatagramConstructor {
     public static void sendShape(String shape) {
         UdpDatagramConstructor.shape = shape;
         createAndSendDatagram();
-        UdpDatagramConstructor.shape = DEFAULT_SHAPE;
     }
 
     public static void sendSpeed(String speed) {
