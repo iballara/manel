@@ -11,7 +11,10 @@ import java.util.List;
  * @version 2.0
  */
 public class Constants {
-    
+
+    /**
+     * Useful constants for RemoteControlActivity.
+     */
     public static class RemoteControl{
 
         // Direction.
@@ -42,6 +45,9 @@ public class Constants {
         public static final int MIN_GEAR = -3;
     }
 
+    /**
+     * Keys for sending UDP commands.
+     */
     public static class KEYS {
 
         public static class TO_SEND {
@@ -52,6 +58,11 @@ public class Constants {
             public static final String SHAPE = "shp";
             public static final String ACC = "acc";
 
+            /**
+             * Returns the sending keys for processing output UDP packets.
+             *
+             * @return ArrayList<String>
+             */
             public static ArrayList<String> getSendingKeys() {
                 List<String> keys = new ArrayList<>();
                 keys.add(ANGLE);
@@ -64,6 +75,9 @@ public class Constants {
             }
         }
 
+        /**
+         * Keys for receiving UDP commands.
+         */
         public static class TO_RECEIVE {
             public static final String TEMP = "tmp";
             public static final String LIGHTS = "lig";
@@ -74,6 +88,11 @@ public class Constants {
             public static final String ACC_Y = "y";
             public static final String ACC_Z = "z";
 
+            /**
+             * Returns the receiving keys for processing input UDP packets.
+             *
+             * @return ArrayList<String>
+             */
             public static ArrayList<String> getReceivingKeys() {
                 List<String> keys = new ArrayList<>();
                 keys.add(TEMP);

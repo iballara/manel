@@ -21,6 +21,13 @@ import static manel.com.manel.utils.Constants.KEYS.TO_RECEIVE.TEMP;
 import static manel.com.manel.utils.Constants.KEYS.TO_RECEIVE.ULTRASOUND;
 import static manel.com.manel.utils.Constants.KEYS.TO_RECEIVE.getReceivingKeys;
 
+/**
+ * This is a class for receiving data through UDP.
+ *
+ *
+ * @author  Ignasi Ballara, Joaquim Porte, Arnau Tienda
+ * @version 2.0
+ */
 public class UdpDatagramDeconstructor {
     public static void receiveData(HashMap<String, String> data) {
 
@@ -31,6 +38,13 @@ public class UdpDatagramDeconstructor {
         }
     }
 
+    /**
+     * This is the method that updates the views depending on the data received
+     * through UDP packets.
+     *
+     * @param key String
+     * @param value String
+     */
     private static void updateValue(String key, String value) {
 
         switch (key) {
@@ -59,6 +73,5 @@ public class UdpDatagramDeconstructor {
                 printAccZ(Double.valueOf(value));
                 break;
         }
-
     }
 }

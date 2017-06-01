@@ -15,9 +15,10 @@ import static manel.com.manel.comms.MyThreads.runRxAndTxThreads;
 /**
  * This is the communication service.
  * It is in charge of receiving UDP packets and returning its messages to the view.
+ * This class is a gateway for controlling the threads from the outside.
  *
  * @author  Ignasi Ballara, Joaquim Porte, Arnau Tienda
- * @version 1.0
+ * @version 2.0
  */
 public class CommunicationService extends Service {
 
@@ -39,6 +40,15 @@ public class CommunicationService extends Service {
         super.onCreate();
     }
 
+    /**
+     * This method is invoked when some activity start the service.
+     * It starts both receiving and transmitting threads for UDP packets.
+     *
+     * @param intent Intent
+     * @param flags int
+     * @param startId int
+     * @return int
+     */
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         try {
@@ -59,6 +69,10 @@ public class CommunicationService extends Service {
         isServiceRunning = false;
     }
 
+    /**
+     * This method is in charge of telling to MyTransmiterThread what to send.
+     * @param datagram String datagram to send.
+     */
     public static void sendDatagram(String datagram){
         MyThreads.datagramToSend = datagram;
     }

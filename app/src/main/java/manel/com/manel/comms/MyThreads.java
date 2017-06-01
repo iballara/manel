@@ -17,12 +17,25 @@ import static manel.com.manel.comms.CommunicationService.BYTES_BUFFER;
 import static manel.com.manel.comms.CommunicationService.PHONE_PORT;
 import static manel.com.manel.comms.CommunicationService.socket;
 
+/**
+ * This is a package-protected class that handles 2 threads, one for receiving UDP packets and
+ * another one for sending UDP packets.
+ *
+ * Each of these threads is a static class and can only be accessed from the CommunicationService
+ * sevice, which is a like an interface for controlling the threads.
+ *
+ * @author  Ignasi Ballara, Joaquim Porte, Arnau Tienda
+ * @version 2.0
+ */
 class MyThreads {
 
     private static MyTransmiterThread txThread;
     private static MyReceivingThread rxThread;
     static String datagramToSend = "";
 
+    /**
+     * Gateway method for starting the threads only from the CommunicationService service.
+     */
     static void runRxAndTxThreads() {
         txThread = new MyTransmiterThread();
         rxThread = new MyReceivingThread();
@@ -30,6 +43,9 @@ class MyThreads {
         rxThread.start();
     }
 
+    /**
+     * Method for stopping both threads.
+     */
     static void stopRxAndTxThreads() {
         if (txThread.isAlive()) {
             txThread.interrupt();
@@ -40,6 +56,9 @@ class MyThreads {
         }
     }
 
+    /**
+     * Class for receiving UDP packets.
+     */
     private static class MyReceivingThread extends Thread {
 
         private final static String INNER_TAG = "MyReceivingThread";
@@ -53,6 +72,7 @@ class MyThreads {
 
         /**
          * Method in charge of receiving the UDP packets.
+         * It's constantly looping.
          */
         private void receiveUDPMessage(){
 
@@ -86,6 +106,9 @@ class MyThreads {
         }
     }
 
+    /**
+     * Class for sending UDP packets.
+     */
     private static class MyTransmiterThread extends Thread {
 
         private static final int TIME_BETWEEN_FRAMES = 300;
@@ -100,6 +123,10 @@ class MyThreads {
             sendUDPMessage();
         }
 
+        /**
+         * Method for sending the UDP packets.
+         * It's constantly looping.
+         */
         private void sendUDPMessage() {
 
             while (!this.isInterrupted()) {

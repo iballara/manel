@@ -6,6 +6,13 @@ import manel.com.manel.utils.Constants;
 
 import static manel.com.manel.comms.CommunicationService.sendDatagram;
 
+/**
+ * This is a class for sending data through UDP.
+ * When we want to modify the data we will send of a certain field, here is where it is modified.
+ *
+ * @author  Ignasi Ballara, Joaquim Porte, Arnau Tienda
+ * @version 2.0
+ */
 public class UdpDatagramConstructor {
 
     private final static int DATA_SIZE = 6;
@@ -15,6 +22,10 @@ public class UdpDatagramConstructor {
     public static String shape = "";
     private static String speed = "";
     private static String acc = "";
+
+    /* ************
+    *** SETTERS
+    ***************/
 
     public static void sendAcc(String acc) {
         UdpDatagramConstructor.acc = acc;
@@ -46,6 +57,9 @@ public class UdpDatagramConstructor {
         createAndSendDatagram();
     }
 
+    /**
+     * Method that adds the key to each field.
+     */
     private static void createAndSendDatagram(){
 
         HashMap<String, String> dataToSend = new HashMap<>(DATA_SIZE);
