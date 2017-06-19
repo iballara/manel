@@ -10,7 +10,7 @@ import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 
-import static manel.com.manel.comms.MyThreads.runRxAndTxThreads;
+import static manel.com.manel.comms.UDPrxAndtxThreads.runRxAndTxThreads;
 
 /**
  * This is the communication service.
@@ -22,7 +22,7 @@ import static manel.com.manel.comms.MyThreads.runRxAndTxThreads;
  */
 public class CommunicationService extends Service {
 
-    public final static String LOCAL_IP = "192.168.0.105";
+    public final static String PHONE_IP = "192.168.0.100";
     final static int PHONE_PORT =  58723;
     static final int BYTES_BUFFER = 10000;
     public static Boolean isServiceRunning = false;
@@ -52,7 +52,7 @@ public class CommunicationService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         try {
-            localAddress = InetAddress.getByName(LOCAL_IP);
+            localAddress = InetAddress.getByName(PHONE_IP);
             socket = new DatagramSocket(PHONE_PORT, localAddress);
         } catch (UnknownHostException | SocketException e) {
             e.printStackTrace();
@@ -74,6 +74,6 @@ public class CommunicationService extends Service {
      * @param datagram String datagram to send.
      */
     public static void sendDatagram(String datagram){
-        MyThreads.datagramToSend = datagram;
+        UDPrxAndtxThreads.datagramToSend = datagram;
     }
 }

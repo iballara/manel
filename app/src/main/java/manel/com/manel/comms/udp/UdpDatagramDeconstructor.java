@@ -29,6 +29,11 @@ import static manel.com.manel.utils.Constants.KEYS.TO_RECEIVE.getReceivingKeys;
  * @version 2.0
  */
 public class UdpDatagramDeconstructor {
+
+    /**
+     * Method for trating the new data received.
+     * @param data HashMap<String, String>
+     */
     public static void receiveData(HashMap<String, String> data) {
 
         ArrayList<String> keys = getReceivingKeys();

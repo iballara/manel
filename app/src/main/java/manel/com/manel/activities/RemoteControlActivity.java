@@ -52,9 +52,15 @@ import static manel.com.manel.utils.Constants.RemoteControl.TRIANGLE;
 public class RemoteControlActivity extends AppCompatActivity
         implements GestureOverlayView.OnGesturePerformedListener, SensorEventListener {
 
+    private static final String ZERO = "0";
+    private static final String ONE = "1";
+    private static final String LIGHTS_OFF_TEXT = "Ligths: OFF";
+    private static final String LIGHTS_ON_TEXT = "Lights: ON";
+    private static final String GEAR = "Gear: ";
     private static final String DEFAULT_SPEED = "+0";
     public static final String DEFAULT_SHAPE = "0";
-    private static Boolean isButtonPressed;
+
+    private Boolean isButtonPressed;
     private GestureLibrary gestureLib;
     private Boolean drivingModeManual;
     private Integer currentGear;
@@ -191,30 +197,30 @@ public class RemoteControlActivity extends AppCompatActivity
 
     public static void setTvSpeed(String value) {
         if (tvSpeed != null) {
-            tvSpeed.setText("Gear: " + value);
+            tvSpeed.setText(String.format("%s%s", GEAR, value));
         }
     }
 
     public static void setTvLights(String value) {
         if (tvLights != null) {
-            if (value.equals("0"))
-                tvLights.setText("Ligths: OFF");
+            if (value.equals(ZERO))
+                tvLights.setText(LIGHTS_OFF_TEXT);
             else
-                tvLights.setText("Ligths: ON");
+                tvLights.setText(LIGHTS_ON_TEXT);
         }
     }
 
     public static void setBumperLeft(String value) {
         if (bumperLeft != null) {
-            if (value.equals("0"))
-                bumperLeft.setBackgroundColor(Color.CYAN);
-            else
+            if (value.equals("1"))
                 bumperLeft.setBackgroundColor(Color.RED);
+            else
+                bumperLeft.setBackgroundColor(Color.CYAN);
         }
     }
     public static void setBumperCenter(String value) {
         if (bumperCenter != null) {
-            if (value.equals("0"))
+            if (value.equals(ZERO))
                 bumperCenter.setBackgroundColor(Color.CYAN);
             else
                 bumperCenter.setBackgroundColor(Color.RED);
@@ -223,10 +229,10 @@ public class RemoteControlActivity extends AppCompatActivity
 
     public static void setBumperRight(String value) {
         if (bumperRight != null) {
-            if (value.equals("0"))
-                bumperRight.setBackgroundColor(Color.CYAN);
-            else
+            if (value.equals(ONE))
                 bumperRight.setBackgroundColor(Color.RED);
+            else
+                bumperRight.setBackgroundColor(Color.CYAN);
         }
     }
 
@@ -358,7 +364,6 @@ public class RemoteControlActivity extends AppCompatActivity
      * @return String with the symbol of the shape to send.
      */
     private String shapeMapper(String name) {
-
         switch (name.charAt(0)) {
             case 'T':
                 return TRIANGLE;
