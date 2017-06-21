@@ -1,34 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:textSize="20dp"
-        android:text="@string/labyrinth"/>
+   <LinearLayout
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/iv_laby"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@mipmap/labyrinth"/>
-    <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:orientation="horizontal">-->
+      <include android:id="@+id/row_4"
+          layout="@layout/cell_row_layout"
+          android:layout_width="match_parent"
+          android:layout_height="0dp"
+          android:layout_weight="1"/>
 
-        <!--<LinearLayout-->
-            <!--android:id="@+id/linearLayout"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:layout_weight="1"-->
-            <!--android:gravity="center_horizontal"-->
-            <!--android:orientation="vertical" />-->
+      <include android:id="@+id/row_3"
+          layout="@layout/cell_row_layout"
+          android:layout_width="wrap_content"
+          android:layout_height="0dp"
+          android:layout_weight="1"/>
 
-    <!--</LinearLayout>-->
+      <include android:id="@+id/row_2"
+          layout="@layout/cell_row_layout"
+          android:layout_width="wrap_content"
+          android:layout_height="0dp"
+          android:layout_weight="1"/>
+
+      <include android:id="@+id/row_1"
+          layout="@layout/cell_row_layout"
+          android:layout_width="wrap_content"
+          android:layout_height="0dp"
+          android:layout_weight="1"/>
+
+      <include android:id="@+id/row_0"
+          layout="@layout/cell_row_layout"
+          android:layout_width="wrap_content"
+          android:layout_height="0dp"
+          android:layout_weight="1"/>
+
+   </LinearLayout>
+
+   <LinearLayout
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:orientation="vertical"
+       android:layout_margin="20dp">
+
+      <Button
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_margin="20dp"
+          android:text="@string/first_ride"/>
+
+      <Button
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_margin="20dp"
+          android:text="@string/second_ride"/>
+
+   </LinearLayout>
+
 
 </LinearLayout>

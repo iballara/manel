@@ -11,4 +11,6 @@
     <string name="lightsOff">OFF</string>
     <string name="log">LOG:</string>
     <string name="accelerate">ACCELERATE</string>
+    <string name="first_ride">FIRST RIDE</string>
+    <string name="second_ride">SECOND RIDE</string>
 </resources>

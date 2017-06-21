@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <View
+        android:id="@+id/north_wall"
+        android:layout_width="40dp"
+        android:layout_height="3dp"
+        android:layout_margin="1dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/rectangle"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <View
+            android:id="@+id/west_wall"
+            android:layout_width="3dp"
+            android:layout_height="40dp"
+            android:layout_margin="1dp"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/rectangle"/>
+        <View
+            android:id="@+id/cell"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/rectangle"/>
+
+        <View
+            android:id="@+id/east_wall"
+            android:layout_width="3dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="1dp"
+            android:background="@drawable/rectangle" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/south_wall"
+        android:layout_width="40dp"
+        android:layout_height="3dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="1dp"
+        android:background="@drawable/rectangle"/>
+
+</LinearLayout>
