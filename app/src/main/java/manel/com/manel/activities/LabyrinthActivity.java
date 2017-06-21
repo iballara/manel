@@ -25,10 +25,6 @@ public class LabyrinthActivity extends AppCompatActivity {
         setContentView(R.layout.activity_labyrinth);
         ActionBar actBar = getSupportActionBar();
         actBar.setHomeButtonEnabled(true);
-//        Labyrinth labyrinth = LabyrinthMother.getLabyrinth(1);
-//        LabyrinthView view = new LabyrinthView(this, labyrinth);
-//        LinearLayout layout = (LinearLayout) findViewById(R.id.linearLayout);
-//        layout.addView(view);
     }
 
     @Override
