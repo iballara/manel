@@ -2,6 +2,7 @@ package manel.com.manel.comms.udp;
 
 import java.util.HashMap;
 
+import manel.com.manel.activities.RemoteControlActivity;
 import manel.com.manel.utils.Constants;
 
 import static manel.com.manel.comms.CommunicationService.sendDatagram;
@@ -16,13 +17,13 @@ import static manel.com.manel.comms.CommunicationService.sendDatagram;
 public class UdpDatagramConstructor {
 
     private final static int DATA_SIZE = 6;
-    private static String drivingMode = "";
-    private static String lightsStatus = "";
-    private static String angleToTurn = "";
-    public static String shape = "";
-    private static String speed = "";
-    private static String acc = "";
-    private static String str = "0";
+    private static String drivingMode = Constants.RemoteControl.MANUAL;
+    private static String lightsStatus = Constants.RemoteControl.LIGHTS_OFF;
+    private static String angleToTurn = Constants.RemoteControl.ANGLE_ZERO;
+    public static String shape = RemoteControlActivity.DEFAULT_SHAPE;
+    private static String speed = RemoteControlActivity.DEFAULT_SPEED;
+    private static String acc = Constants.RemoteControl.IDLE;
+    private static String str = Constants.RemoteControl.IDLE;
 
     /* ************
     *** SETTERS

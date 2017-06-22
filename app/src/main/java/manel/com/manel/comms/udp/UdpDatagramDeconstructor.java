@@ -3,6 +3,8 @@ package manel.com.manel.comms.udp;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import manel.com.manel.activities.LabyrinthActivity;
+
 import static manel.com.manel.activities.AccelerometerActivity.printAccX;
 import static manel.com.manel.activities.AccelerometerActivity.printAccY;
 import static manel.com.manel.activities.AccelerometerActivity.printAccZ;
@@ -58,43 +60,51 @@ public class UdpDatagramDeconstructor {
      */
     private static void updateValue(String key, String value) {
 
-        switch (key) {
-            case TEMP:
-                setTvTemperature(value + " ºC");
-                break;
-            case LIGHTS:
-                setTvLights(value);
-                break;
-            case BUMPER_LEFT:
-                setBumperLeft(value);
-                break;
-            case BUMPER_RIGHT:
-                setBumperRight(value);
-                break;
-            case ULTRASOUND:
-                setBumperCenter(value);
-                break;
-            case ACC_X:
-                printAccX(Double.valueOf(value));
-                break;
-            case ACC_Y:
-                printAccY(Double.valueOf(value));
-                break;
-            case ACC_Z:
-                printAccZ(Double.valueOf(value));
-                break;
-            case ACTUAL_CELL:
-                break;
-            case LAST_CELL:
-                break;
-            case NORTH:
-                break;
-            case SOUTH:
-                break;
-            case EAST:
-                break;
-            case WEST:
-                break;
+        if (value != null) {
+            switch (key) {
+                case TEMP:
+                    setTvTemperature(value + " ºC");
+                    break;
+                case LIGHTS:
+                    setTvLights(value);
+                    break;
+                case BUMPER_LEFT:
+                    setBumperLeft(value);
+                    break;
+                case BUMPER_RIGHT:
+                    setBumperRight(value);
+                    break;
+                case ULTRASOUND:
+                    setBumperCenter(value);
+                    break;
+                case ACC_X:
+                    printAccX(Double.valueOf(value));
+                    break;
+                case ACC_Y:
+                    printAccY(Double.valueOf(value));
+                    break;
+                case ACC_Z:
+                    printAccZ(Double.valueOf(value));
+                    break;
+                case ACTUAL_CELL:
+                    LabyrinthActivity.setActualCell(value);
+                    break;
+                case LAST_CELL:
+                    LabyrinthActivity.setLastCell(value);
+                    break;
+                case NORTH:
+                    LabyrinthActivity.setNorth(value);
+                    break;
+                case SOUTH:
+                    LabyrinthActivity.setSouth(value);
+                    break;
+                case EAST:
+                    LabyrinthActivity.setEast(value);
+                    break;
+                case WEST:
+                    LabyrinthActivity.setWest(value);
+                    break;
+            }
         }
     }
 }

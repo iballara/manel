@@ -1,5 +1,6 @@
 package manel.com.manel.activities;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -10,6 +11,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import manel.com.manel.R;
+import manel.com.manel.comms.CommunicationService;
 import manel.com.manel.comms.udp.UdpDatagramConstructor;
 import manel.com.manel.utils.Constants;
 
@@ -21,8 +23,10 @@ import manel.com.manel.utils.Constants;
  */
 public class LabyrinthActivity extends AppCompatActivity {
 
+    private final static String LAST_CELL_OK = "441";
     private static LinearLayout layout;
     private static View actualCell;
+    private static Button secondRideBtn;
 
     /**
      * OnCreate Method from Activity.
@@ -36,6 +40,9 @@ public class LabyrinthActivity extends AppCompatActivity {
         ActionBar actBar = getSupportActionBar();
         actBar.setHomeButtonEnabled(true);
         setViews();
+        if (!CommunicationService.isServiceRunning) {
+            startService(new Intent(this, CommunicationService.class));
+        }
     }
 
     @Override
@@ -52,43 +59,6 @@ public class LabyrinthActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-    }
-
-    /*
-    **  PRIVATE METHODS
-    */
-    private void setViews() {
-
-        layout = (LinearLayout) findViewById(R.id.labyrinth_layout);
-
-        for (int i = 0; i <= 4; i++) {
-            for (int j = 0; j <= 4; j++){
-                getNorthernWall(i,j).setBackgroundColor(Color.WHITE);
-                getSouthernWall(i,j).setBackgroundColor(Color.WHITE);
-                getEasternWall(i,j).setBackgroundColor(Color.WHITE);
-                getWesternWall(i,j).setBackgroundColor(Color.WHITE);
-            }
-        }
-        getCell(0,0).setBackgroundColor(Color.CYAN);
-        getInnerCell(0,0).setBackgroundColor(Color.GREEN);
-
-        Button firstRideBtn = (Button) findViewById(R.id.first_ride_btn);
-        Button secondRideBtn = (Button) findViewById(R.id.second_ride_btn);
-        secondRideBtn.setEnabled(false);
-
-        firstRideBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                UdpDatagramConstructor.sendLabyrinth(Constants.RemoteControl.FIRST_RIDE);
-            }
-        });
-
-        secondRideBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                UdpDatagramConstructor.sendLabyrinth(Constants.RemoteControl.SECOND_RIDE);
-            }
-        });
     }
 
     public static View getInnerCell(int x, int y) {
@@ -116,14 +86,21 @@ public class LabyrinthActivity extends AppCompatActivity {
     }
 
     public static void setActualCell(String value) {
-        View view = getCell(
-                Integer.parseInt(value.substring(0,1)),
-                Integer.parseInt(value.substring(1,2))
-        );
+
+        int x = Integer.parseInt(value.substring(0,1));
+        int y = Integer.parseInt(value.substring(1,2));
+
+        View view = getCell(x, y);
 
         if (view != null) {
+            actualCell.setBackgroundColor(Color.WHITE);
             actualCell = view;
             view.setBackgroundColor(Color.CYAN);
+        }
+
+        if (x == 4 && y == 4) {
+            secondRideBtn.setEnabled(true);
+            setLastCell(LAST_CELL_OK);
         }
     }
 
@@ -177,6 +154,39 @@ public class LabyrinthActivity extends AppCompatActivity {
     /*
     **  PRIVATE FUNCTIONS
     */
+
+    private void setViews() {
+        layout = (LinearLayout) findViewById(R.id.labyrinth_layout);
+        actualCell = getCell(0,0);
+        for (int i = 0; i <= 4; i++) {
+            for (int j = 0; j <= 4; j++){
+                getNorthernWall(i,j).setBackgroundColor(Color.WHITE);
+                getSouthernWall(i,j).setBackgroundColor(Color.WHITE);
+                getEasternWall(i,j).setBackgroundColor(Color.WHITE);
+                getWesternWall(i,j).setBackgroundColor(Color.WHITE);
+            }
+        }
+        getCell(0,0).setBackgroundColor(Color.CYAN);
+        getInnerCell(0,0).setBackgroundColor(Color.GREEN);
+
+        Button firstRideBtn = (Button) findViewById(R.id.first_ride_btn);
+        secondRideBtn = (Button) findViewById(R.id.second_ride_btn);
+        secondRideBtn.setEnabled(false);
+
+        firstRideBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UdpDatagramConstructor.sendLabyrinth(Constants.RemoteControl.FIRST_RIDE);
+            }
+        });
+
+        secondRideBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UdpDatagramConstructor.sendLabyrinth(Constants.RemoteControl.SECOND_RIDE);
+            }
+        });
+    }
 
     private static View getRow(int x) {
         View view;

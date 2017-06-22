@@ -57,8 +57,9 @@ public class RemoteControlActivity extends AppCompatActivity
     private static final String LIGHTS_OFF_TEXT = "Ligths: OFF";
     private static final String LIGHTS_ON_TEXT = "Lights: ON";
     private static final String GEAR = "Gear: ";
-    private static final String DEFAULT_SPEED = "+0";
+    public static final String DEFAULT_SPEED = "+0";
     public static final String DEFAULT_SHAPE = "0";
+    private static final String PLUS = "+";
 
     private Boolean isButtonPressed;
     private GestureLibrary gestureLib;
@@ -350,7 +351,7 @@ public class RemoteControlActivity extends AppCompatActivity
      */
     private void prepareSpeedToSend(Integer internalSpeed) {
         if (internalSpeed >= 0){
-            sendSpeed("+" + internalSpeed);
+            sendSpeed(PLUS + internalSpeed);
         } else {
             sendSpeed(internalSpeed.toString());
         }
