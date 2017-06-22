@@ -10,9 +10,12 @@ import static manel.com.manel.comms.CommunicationService.sendDatagram;
 /**
  * This is a class for sending data through UDP.
  * When we want to modify the data we will send of a certain field, here is where it is modified.
+ * The datagram we send to the robot is:
+ *
+ * (i.e.)   ang:00,mod:man,lig:0,vel:+0,shp:0,acc:0,str:1
  *
  * @author  Ignasi Ballara, Joaquim Porte, Arnau Tienda
- * @version 2.0
+ * @version 3.0
  */
 public class UdpDatagramConstructor {
 

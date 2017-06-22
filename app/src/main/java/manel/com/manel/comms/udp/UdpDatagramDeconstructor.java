@@ -31,7 +31,11 @@ import static manel.com.manel.utils.Constants.KEYS.TO_RECEIVE.getReceivingKeys;
 
 /**
  * This is a class for receiving data through UDP.
+ * The datagram we will receive when doing the labyrinth is as follows:
+ * (i.e.)   act:44,ant:431,n:0,e:1,s:1,w:0
  *
+ * When doing remote control:
+ * (i.e.)   lig:1,be:1,bd:1,us:0,T:26,x:0.05,y:-0.05,z:1.09
  *
  * @author  Ignasi Ballara, Joaquim Porte, Arnau Tienda
  * @version 2.0

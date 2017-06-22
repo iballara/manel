@@ -17,6 +17,9 @@ import manel.com.manel.utils.Constants;
 
 /**
  * An Activity with which we will keep track of the robot solving the labyrinth.
+ * We paint the labyrinth as the robot simultaenously solves it.
+ * Valid cells are painted green while invalid cells are painted red.
+ * The background of the actual cell in which the robot is at each moment is painted cyan.
  *
  * @author  Ignasi Ballara, Joaquim Porte, Arnau Tienda
  * @version 2.0
@@ -61,30 +64,77 @@ public class LabyrinthActivity extends AppCompatActivity {
         super.onBackPressed();
     }
 
+    /**
+     * Returns the central square within a cell, without the walls.
+     *
+     * @param x int -> referring to the row
+     * @param y int -> referring to the columns
+     * @return View
+     */
     public static View getInnerCell(int x, int y) {
         return getCell(x, y).findViewById(R.id.cell);
     }
 
-    public static View getNorthernWall(int x, int y) {
-        return getCell(x,y).findViewById(R.id.north_wall);
-    }
-
-    public static View getSouthernWall(int x, int y) {
-        return getCell(x,y).findViewById(R.id.south_wall);
-    }
-
-    public static View getEasternWall(int x, int y) {
-        return getCell(x,y).findViewById(R.id.east_wall);
-    }
-
-    public static View getWesternWall(int x, int y) {
-        return getCell(x,y).findViewById(R.id.west_wall);
-    }
-
+    /**
+     * Returns a cell, with the 4 walls and the inner rectangle.
+     *
+     * @param x int -> referring to the row
+     * @param y int -> referring to the columns
+     * @return View
+     */
     public static View getCell(int x, int y) {
         return getCellFromRow(getRow(x), y);
     }
 
+    /**
+     * Returns the top wall of the cell specified by x and y.
+     *
+     * @param x int -> referring to the row
+     * @param y int -> referring to the columns
+     * @return View
+     */
+    public static View getNorthernWall(int x, int y) {
+        return getCell(x,y).findViewById(R.id.north_wall);
+    }
+
+    /**
+     * Returns the south wall of the cell specified by x and y.
+     *
+     * @param x int -> referring to the row
+     * @param y int -> referring to the columns
+     * @return View
+     */
+    public static View getSouthernWall(int x, int y) {
+        return getCell(x,y).findViewById(R.id.south_wall);
+    }
+
+    /**
+     * Returns the left wall of the cell specified by x and y.
+     *
+     * @param x int -> referring to the row
+     * @param y int -> referring to the columns
+     * @return View
+     */
+    public static View getEasternWall(int x, int y) {
+        return getCell(x,y).findViewById(R.id.east_wall);
+    }
+
+    /**
+     * Returns the right wall of the cell specified by x and y.
+     *
+     * @param x int -> referring to the row
+     * @param y int -> referring to the columns
+     * @return View
+     */
+    public static View getWesternWall(int x, int y) {
+        return getCell(x,y).findViewById(R.id.west_wall);
+    }
+
+    /**
+     * Paints the cell in which Manel is currently on.
+     *
+     * @param value String
+     */
     public static void setActualCell(String value) {
 
         int x = Integer.parseInt(value.substring(0,1));
@@ -98,12 +148,18 @@ public class LabyrinthActivity extends AppCompatActivity {
             view.setBackgroundColor(Color.CYAN);
         }
 
+        // Setting the last cell (4,4) to valid.
         if (x == 4 && y == 4) {
             secondRideBtn.setEnabled(true);
             setLastCell(LAST_CELL_OK);
         }
     }
 
+    /**
+     * Paints the last cell in which Manel has been.
+     *
+     * @param value String
+     */
     public static void setLastCell(String value) {
 
         View view = getCell(
@@ -119,6 +175,10 @@ public class LabyrinthActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Sets the northern wall of the actual cell to visible or not, depending on "value" string.
+     * @param value String -> "1" means there is a wall.
+     */
     public static void setNorth(String value) {
         if (actualCell != null) {
             if (value.equals("1")) {
@@ -127,6 +187,10 @@ public class LabyrinthActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Sets the southern wall of the actual cell to visible or not, depending on "value" string.
+     * @param value String -> "1" means there is a wall.
+     */
     public static void setSouth(String value) {
         if (actualCell != null) {
             if (value.equals("1")) {
@@ -135,6 +199,10 @@ public class LabyrinthActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Sets the eastern wall of the actual cell to visible or not, depending on "value" string.
+     * @param value String -> "1" means there is a wall.
+     */
     public static void setEast(String value) {
         if (actualCell != null) {
             if (value.equals("1")) {
@@ -143,6 +211,10 @@ public class LabyrinthActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Sets the western wall of the actual cell to visible or not, depending on "value" string.
+     * @param value String -> "1" means there is a wall.
+     */
     public static void setWest(String value) {
         if (actualCell != null) {
             if (value.equals("1")) {
@@ -155,9 +227,16 @@ public class LabyrinthActivity extends AppCompatActivity {
     **  PRIVATE FUNCTIONS
     */
 
+    /**
+     * Classic method for setting up the views.
+     */
     private void setViews() {
         layout = (LinearLayout) findViewById(R.id.labyrinth_layout);
+
+        //We set the first cell to (0,0).
         actualCell = getCell(0,0);
+
+        // We first paint all the walls WHITE.
         for (int i = 0; i <= 4; i++) {
             for (int j = 0; j <= 4; j++){
                 getNorthernWall(i,j).setBackgroundColor(Color.WHITE);
@@ -188,6 +267,12 @@ public class LabyrinthActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * This method encapsulates the logic for getting a row 1x5 og the labyrinth.
+     *
+     * @param x int -> referring to the row.
+     * @return View -> The row.
+     */
     private static View getRow(int x) {
         View view;
         switch (x){
@@ -213,6 +298,13 @@ public class LabyrinthActivity extends AppCompatActivity {
         return view;
     }
 
+    /**
+     * This method encapsulates the logic for getting a cell within a row.
+     *
+     * @param row View -> The row in which we'll search for the cell.
+     * @param y int -> The column we select.
+     * @return View -> The cell we return.
+     */
     private static View getCellFromRow(View row, int y) {
         View view;
         if (row != null) {

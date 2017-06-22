@@ -8,7 +8,7 @@ import java.util.List;
  * for all the different constants we will use in this project.
  *
  * @author  Ignasi Ballara, Joaquim Porte, Arnau Tienda
- * @version 2.0
+ * @version 3.0
  */
 public class Constants {
 

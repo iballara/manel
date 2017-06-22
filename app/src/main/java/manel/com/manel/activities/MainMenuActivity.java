@@ -23,7 +23,7 @@ import static manel.com.manel.comms.udp.UdpDatagramHelper.parseReceivedMessage;
  * It show the four main options and working modes of the app.
  *
  * @author  Ignasi Ballara, Joaquim Porte, Arnau Tienda
- * @version 2.0
+ * @version 3.0
  */
 public class MainMenuActivity extends AppCompatActivity{
 
