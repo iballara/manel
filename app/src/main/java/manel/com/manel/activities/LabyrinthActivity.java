@@ -48,6 +48,12 @@ public class LabyrinthActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Setting bar arrow to return to MainMenu when clicked.
+     *
+     * @param item MenuItem
+     * @return boolean
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -181,8 +187,8 @@ public class LabyrinthActivity extends AppCompatActivity {
      */
     public static void setNorth(String value) {
         if (actualCell != null) {
-            if (value.equals("1")) {
-                actualCell.findViewById(R.id.north_wall).setBackgroundColor(Color.BLACK);
+            if (value.equals("0")) {
+                actualCell.findViewById(R.id.north_wall).setBackgroundColor(Color.WHITE);
             }
         }
     }
@@ -193,8 +199,8 @@ public class LabyrinthActivity extends AppCompatActivity {
      */
     public static void setSouth(String value) {
         if (actualCell != null) {
-            if (value.equals("1")) {
-                actualCell.findViewById(R.id.south_wall).setBackgroundColor(Color.BLACK);
+            if (value.equals("0")) {
+                actualCell.findViewById(R.id.south_wall).setBackgroundColor(Color.WHITE);
             }
         }
     }
@@ -205,8 +211,8 @@ public class LabyrinthActivity extends AppCompatActivity {
      */
     public static void setEast(String value) {
         if (actualCell != null) {
-            if (value.equals("1")) {
-                actualCell.findViewById(R.id.east_wall).setBackgroundColor(Color.BLACK);
+            if (value.equals("0")) {
+                actualCell.findViewById(R.id.east_wall).setBackgroundColor(Color.WHITE);
             }
         }
     }
@@ -217,8 +223,8 @@ public class LabyrinthActivity extends AppCompatActivity {
      */
     public static void setWest(String value) {
         if (actualCell != null) {
-            if (value.equals("1")) {
-                actualCell.findViewById(R.id.west_wall).setBackgroundColor(Color.BLACK);
+            if (value.equals("0")) {
+                actualCell.findViewById(R.id.west_wall).setBackgroundColor(Color.WHITE);
             }
         }
     }
@@ -236,13 +242,13 @@ public class LabyrinthActivity extends AppCompatActivity {
         //We set the first cell to (0,0).
         actualCell = getCell(0,0);
 
-        // We first paint all the walls WHITE.
+        // We first paint all the walls BLACK.
         for (int i = 0; i <= 4; i++) {
             for (int j = 0; j <= 4; j++){
-                getNorthernWall(i,j).setBackgroundColor(Color.WHITE);
-                getSouthernWall(i,j).setBackgroundColor(Color.WHITE);
-                getEasternWall(i,j).setBackgroundColor(Color.WHITE);
-                getWesternWall(i,j).setBackgroundColor(Color.WHITE);
+                getNorthernWall(i,j).setBackgroundColor(Color.BLACK);
+                getSouthernWall(i,j).setBackgroundColor(Color.BLACK);
+                getEasternWall(i,j).setBackgroundColor(Color.BLACK);
+                getWesternWall(i,j).setBackgroundColor(Color.BLACK);
             }
         }
         getCell(0,0).setBackgroundColor(Color.CYAN);
