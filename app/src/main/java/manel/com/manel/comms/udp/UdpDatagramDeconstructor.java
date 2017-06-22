@@ -42,6 +42,8 @@ import static manel.com.manel.utils.Constants.KEYS.TO_RECEIVE.getReceivingKeys;
  */
 public class UdpDatagramDeconstructor {
 
+    private static final String TEMP = " ºC";
+
     /**
      * Method for trating the new data received.
      * @param data HashMap<String, String>
@@ -67,7 +69,7 @@ public class UdpDatagramDeconstructor {
         if (value != null) {
             switch (key) {
                 case TEMP:
-                    setTvTemperature(value + " ºC");
+                    setTvTemperature(value + TEMP);
                     break;
                 case LIGHTS:
                     setTvLights(value);
