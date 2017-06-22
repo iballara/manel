@@ -191,6 +191,8 @@ public class LabyrinthActivity extends AppCompatActivity {
         if (actualCell != null) {
             if (value.equals("1")) {
                 actualCell.findViewById(R.id.north_wall).setBackgroundColor(Color.BLACK);
+            } else if (value.equals("0")) {
+                actualCell.findViewById(R.id.south_wall).setBackgroundColor(Color.WHITE);
             }
         }
     }
@@ -203,6 +205,8 @@ public class LabyrinthActivity extends AppCompatActivity {
         if (actualCell != null) {
             if (value.equals("1")) {
                 actualCell.findViewById(R.id.south_wall).setBackgroundColor(Color.BLACK);
+            } else if (value.equals("0")) {
+                actualCell.findViewById(R.id.south_wall).setBackgroundColor(Color.WHITE);
             }
         }
     }
@@ -215,6 +219,8 @@ public class LabyrinthActivity extends AppCompatActivity {
         if (actualCell != null) {
             if (value.equals("1")) {
                 actualCell.findViewById(R.id.east_wall).setBackgroundColor(Color.BLACK);
+            } else if (value.equals("0")) {
+                actualCell.findViewById(R.id.south_wall).setBackgroundColor(Color.WHITE);
             }
         }
     }
@@ -227,6 +233,8 @@ public class LabyrinthActivity extends AppCompatActivity {
         if (actualCell != null) {
             if (value.equals("1")) {
                 actualCell.findViewById(R.id.west_wall).setBackgroundColor(Color.BLACK);
+            } else if (value.equals("0")) {
+                actualCell.findViewById(R.id.south_wall).setBackgroundColor(Color.WHITE);
             }
         }
     }
