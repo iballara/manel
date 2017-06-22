@@ -18,8 +18,9 @@ import manel.com.manel.comms.CommunicationService;
  */
 public class CommunicationLogActivity extends AppCompatActivity {
 
-    private static TextView textView;
     private static final long timeBetweenFrames = 500;
+    private static String entireMessage = "";
+    private static TextView textView;
 
     /**
      * OnCreate Method from Activity.
@@ -58,11 +59,19 @@ public class CommunicationLogActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (textView != null)
+            textView.append(entireMessage);
+    }
+
     /**
      * Method for adding a new row to the log register.
      * @param message String
      */
     public static void addLogRow(String message) {
+        entireMessage += message;
         if (textView != null)
             textView.append("\n" + message);
     }

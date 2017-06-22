@@ -19,14 +19,17 @@ import static manel.com.manel.comms.CommunicationService.sendDatagram;
  */
 public class UdpDatagramConstructor {
 
+    public static String str = Constants.RemoteControl.IDLE;
+    public static String shape = RemoteControlActivity.DEFAULT_SHAPE;
+
     private final static int DATA_SIZE = 6;
+
     private static String drivingMode = Constants.RemoteControl.MANUAL;
     private static String lightsStatus = Constants.RemoteControl.LIGHTS_OFF;
     private static String angleToTurn = Constants.RemoteControl.ANGLE_ZERO;
-    public static String shape = RemoteControlActivity.DEFAULT_SHAPE;
     private static String speed = RemoteControlActivity.DEFAULT_SPEED;
     private static String acc = Constants.RemoteControl.IDLE;
-    private static String str = Constants.RemoteControl.IDLE;
+
 
     /* ************
     *** SETTERS

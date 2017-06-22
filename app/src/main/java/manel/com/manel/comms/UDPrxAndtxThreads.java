@@ -12,6 +12,7 @@ import java.util.HashMap;
 import manel.com.manel.activities.CommunicationLogActivity;
 import manel.com.manel.comms.udp.UdpDatagramConstructor;
 import manel.com.manel.comms.udp.UdpDatagramDeconstructor;
+import manel.com.manel.utils.Constants;
 
 import static java.net.InetAddress.getByName;
 import static manel.com.manel.activities.MainMenuActivity.uiHandler;
@@ -150,6 +151,7 @@ class UDPrxAndtxThreads {
                         dsocket.close();
                         Thread.sleep(CommunicationService.timeBetweenFrames);
                         UdpDatagramConstructor.shape = DEFAULT_SHAPE;
+                        UdpDatagramConstructor.str = Constants.RemoteControl.IDLE;
                     } else {
                         Log.i("Packet sent: ", "is null");
                     }
