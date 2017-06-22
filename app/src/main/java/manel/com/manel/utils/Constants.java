@@ -43,6 +43,11 @@ public class Constants {
         // Gears
         public static final int MAX_GEAR = 3;
         public static final int MIN_GEAR = -3;
+
+        // Labyrinth
+        public static final String IDLE = "0";
+        public static final String FIRST_RIDE = "1";
+        public static final String SECOND_RIDE = "2";
     }
 
     /**
@@ -57,6 +62,7 @@ public class Constants {
             public static final String SPEED = "vel";
             public static final String SHAPE = "shp";
             public static final String ACC = "acc";
+            public static final String STR = "str";
 
             /**
              * Returns the sending keys for processing output UDP packets.
@@ -71,6 +77,7 @@ public class Constants {
                 keys.add(SPEED);
                 keys.add(SHAPE);
                 keys.add(ACC);
+                keys.add(STR);
                 return (ArrayList<String>) keys;
             }
         }
@@ -87,6 +94,12 @@ public class Constants {
             public static final String ACC_X = "x";
             public static final String ACC_Y = "y";
             public static final String ACC_Z = "z";
+            public static final String ACTUAL_CELL = "act";
+            public static final String LAST_CELL = "ant";
+            public static final String NORTH = "n";
+            public static final String SOUTH = "s";
+            public static final String EAST = "e";
+            public static final String WEST = "w";
 
             /**
              * Returns the receiving keys for processing input UDP packets.
@@ -103,6 +116,12 @@ public class Constants {
                 keys.add(ACC_X);
                 keys.add(ACC_Y);
                 keys.add(ACC_Z);
+                keys.add(ACTUAL_CELL);
+                keys.add(LAST_CELL);
+                keys.add(NORTH);
+                keys.add(SOUTH);
+                keys.add(EAST);
+                keys.add(WEST);
                 return (ArrayList<String>) keys;
             }
         }

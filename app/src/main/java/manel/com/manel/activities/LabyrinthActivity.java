@@ -4,25 +4,25 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
-import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.GridLayout;
+import android.widget.LinearLayout;
 
 import manel.com.manel.R;
-import manel.com.manel.activities.support.Cell;
+import manel.com.manel.comms.udp.UdpDatagramConstructor;
+import manel.com.manel.utils.Constants;
 
 /**
  * An Activity with which we will keep track of the robot solving the labyrinth.
  *
  * @author  Ignasi Ballara, Joaquim Porte, Arnau Tienda
- * @version 1.0
+ * @version 2.0
  */
 public class LabyrinthActivity extends AppCompatActivity {
 
-    GridLayout grid;
+    private static LinearLayout layout;
+    private static View actualCell;
 
     /**
      * OnCreate Method from Activity.
@@ -59,6 +59,8 @@ public class LabyrinthActivity extends AppCompatActivity {
     */
     private void setViews() {
 
+        layout = (LinearLayout) findViewById(R.id.labyrinth_layout);
+
         for (int i = 0; i <= 4; i++) {
             for (int j = 0; j <= 4; j++){
                 getNorthernWall(i,j).setBackgroundColor(Color.WHITE);
@@ -69,51 +71,130 @@ public class LabyrinthActivity extends AppCompatActivity {
         }
         getCell(0,0).setBackgroundColor(Color.CYAN);
         getInnerCell(0,0).setBackgroundColor(Color.GREEN);
-        getWesternWall(2,3).setBackgroundColor(Color.BLACK);
-        getEasternWall(2,2).setBackgroundColor(Color.BLACK);
+
+        Button firstRideBtn = (Button) findViewById(R.id.first_ride_btn);
+        Button secondRideBtn = (Button) findViewById(R.id.second_ride_btn);
+        secondRideBtn.setEnabled(false);
+
+        firstRideBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UdpDatagramConstructor.sendLabyrinth(Constants.RemoteControl.FIRST_RIDE);
+            }
+        });
+
+        secondRideBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UdpDatagramConstructor.sendLabyrinth(Constants.RemoteControl.SECOND_RIDE);
+            }
+        });
     }
 
-    public View getInnerCell(int x, int y) {
+    public static View getInnerCell(int x, int y) {
         return getCell(x, y).findViewById(R.id.cell);
     }
 
-    public View getNorthernWall(int x, int y) {
+    public static View getNorthernWall(int x, int y) {
         return getCell(x,y).findViewById(R.id.north_wall);
     }
 
-    public View getSouthernWall(int x, int y) {
+    public static View getSouthernWall(int x, int y) {
         return getCell(x,y).findViewById(R.id.south_wall);
     }
 
-    public View getEasternWall(int x, int y) {
+    public static View getEasternWall(int x, int y) {
         return getCell(x,y).findViewById(R.id.east_wall);
     }
 
-    public View getWesternWall(int x, int y) {
+    public static View getWesternWall(int x, int y) {
         return getCell(x,y).findViewById(R.id.west_wall);
     }
 
-    public View getCell(int x, int y) {
+    public static View getCell(int x, int y) {
         return getCellFromRow(getRow(x), y);
     }
 
-    private View getRow(int x) {
-        View view = new View(this);
+    public static void setActualCell(String value) {
+        View view = getCell(
+                Integer.parseInt(value.substring(0,1)),
+                Integer.parseInt(value.substring(1,2))
+        );
+
+        if (view != null) {
+            actualCell = view;
+            view.setBackgroundColor(Color.CYAN);
+        }
+    }
+
+    public static void setLastCell(String value) {
+
+        View view = getCell(
+                Integer.parseInt(value.substring(0,1)),
+                Integer.parseInt(value.substring(1,2))
+        );
+
+        if (view != null) {
+            if (value.substring(2,3).equals("1"))
+                view.findViewById(R.id.cell).setBackgroundColor(Color.GREEN);
+            else if (value.substring(2,3).equals("0"))
+                view.findViewById(R.id.cell).setBackgroundColor(Color.RED);
+        }
+    }
+
+    public static void setNorth(String value) {
+        if (actualCell != null) {
+            if (value.equals("1")) {
+                actualCell.findViewById(R.id.north_wall).setBackgroundColor(Color.BLACK);
+            }
+        }
+    }
+
+    public static void setSouth(String value) {
+        if (actualCell != null) {
+            if (value.equals("1")) {
+                actualCell.findViewById(R.id.south_wall).setBackgroundColor(Color.BLACK);
+            }
+        }
+    }
+
+    public static void setEast(String value) {
+        if (actualCell != null) {
+            if (value.equals("1")) {
+                actualCell.findViewById(R.id.east_wall).setBackgroundColor(Color.BLACK);
+            }
+        }
+    }
+
+    public static void setWest(String value) {
+        if (actualCell != null) {
+            if (value.equals("1")) {
+                actualCell.findViewById(R.id.west_wall).setBackgroundColor(Color.BLACK);
+            }
+        }
+    }
+
+    /*
+    **  PRIVATE FUNCTIONS
+    */
+
+    private static View getRow(int x) {
+        View view;
         switch (x){
             case 0:
-                view = findViewById(R.id.row_0);
+                view = layout.findViewById(R.id.row_0);
             break;
             case 1:
-                view = findViewById(R.id.row_1);
+                view = layout.findViewById(R.id.row_1);
             break;
             case 2:
-                view = findViewById(R.id.row_2);
+                view = layout.findViewById(R.id.row_2);
             break;
             case 3:
-                view =  findViewById(R.id.row_3);
+                view =  layout.findViewById(R.id.row_3);
             break;
             case 4:
-                view = findViewById(R.id.row_4);
+                view = layout.findViewById(R.id.row_4);
             break;
             default:
                 view = null;
@@ -122,28 +203,32 @@ public class LabyrinthActivity extends AppCompatActivity {
         return view;
     }
 
-    private View getCellFromRow(View row, int y) {
-        View view = new View(this);
-        switch (y){
-            case 0:
-                view = row.findViewById(R.id.cell_0);
-                break;
-            case 1:
-                view = row.findViewById(R.id.cell_1);
-                break;
-            case 2:
-                view = row.findViewById(R.id.cell_2);
-                break;
-            case 3:
-                view =  row.findViewById(R.id.cell_3);
-                break;
-            case 4:
-                view = row.findViewById(R.id.cell_4);
-                break;
-            default:
-                view = null;
-                break;
+    private static View getCellFromRow(View row, int y) {
+        View view;
+        if (row != null) {
+            switch (y) {
+                case 0:
+                    view = row.findViewById(R.id.cell_0);
+                    break;
+                case 1:
+                    view = row.findViewById(R.id.cell_1);
+                    break;
+                case 2:
+                    view = row.findViewById(R.id.cell_2);
+                    break;
+                case 3:
+                    view = row.findViewById(R.id.cell_3);
+                    break;
+                case 4:
+                    view = row.findViewById(R.id.cell_4);
+                    break;
+                default:
+                    view = null;
+                    break;
+            }
+            return view;
+        } else {
+            return null;
         }
-        return view;
     }
 }

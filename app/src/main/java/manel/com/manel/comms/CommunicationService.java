@@ -22,7 +22,7 @@ import static manel.com.manel.comms.UDPrxAndtxThreads.runRxAndTxThreads;
  */
 public class CommunicationService extends Service {
 
-    public final static String PHONE_IP = "192.168.0.100";
+    public final static String PHONE_IP = "192.168.1.219";
     final static int PHONE_PORT =  58723;
     static final int BYTES_BUFFER = 10000;
     public static Boolean isServiceRunning = false;

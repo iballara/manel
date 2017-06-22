@@ -22,6 +22,7 @@ public class UdpDatagramConstructor {
     public static String shape = "";
     private static String speed = "";
     private static String acc = "";
+    private static String str = "0";
 
     /* ************
     *** SETTERS
@@ -57,6 +58,11 @@ public class UdpDatagramConstructor {
         createAndSendDatagram();
     }
 
+    public static void sendLabyrinth(String labMode) {
+        UdpDatagramConstructor.str = labMode;
+        createAndSendDatagram();
+    }
+
     /**
      * Method that adds the key to each field.
      */
@@ -69,6 +75,7 @@ public class UdpDatagramConstructor {
         dataToSend.put(Constants.KEYS.TO_SEND.SHAPE, shape);
         dataToSend.put(Constants.KEYS.TO_SEND.SPEED, speed);
         dataToSend.put(Constants.KEYS.TO_SEND.ACC, acc);
+        dataToSend.put(Constants.KEYS.TO_SEND.STR, str);
         String datagramToSend = UdpDatagramHelper.formatMessageToSend(dataToSend);
         sendDatagram(datagramToSend);
     }

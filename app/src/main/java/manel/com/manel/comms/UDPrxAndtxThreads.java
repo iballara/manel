@@ -108,12 +108,6 @@ class UDPrxAndtxThreads {
                 }
             }
         }
-
-        private void treatMessage(Message msg) {
-            CommunicationLogActivity.addLogRow((String) msg.obj);
-            HashMap<String, String> data = parseReceivedMessage((String) msg.obj);
-            UdpDatagramDeconstructor.receiveData(data);
-        }
     }
 
     /**

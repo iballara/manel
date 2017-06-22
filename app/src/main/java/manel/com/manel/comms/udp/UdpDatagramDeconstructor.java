@@ -14,11 +14,17 @@ import static manel.com.manel.activities.RemoteControlActivity.setTvTemperature;
 import static manel.com.manel.utils.Constants.KEYS.TO_RECEIVE.ACC_X;
 import static manel.com.manel.utils.Constants.KEYS.TO_RECEIVE.ACC_Y;
 import static manel.com.manel.utils.Constants.KEYS.TO_RECEIVE.ACC_Z;
+import static manel.com.manel.utils.Constants.KEYS.TO_RECEIVE.ACTUAL_CELL;
 import static manel.com.manel.utils.Constants.KEYS.TO_RECEIVE.BUMPER_LEFT;
 import static manel.com.manel.utils.Constants.KEYS.TO_RECEIVE.BUMPER_RIGHT;
+import static manel.com.manel.utils.Constants.KEYS.TO_RECEIVE.EAST;
+import static manel.com.manel.utils.Constants.KEYS.TO_RECEIVE.LAST_CELL;
 import static manel.com.manel.utils.Constants.KEYS.TO_RECEIVE.LIGHTS;
+import static manel.com.manel.utils.Constants.KEYS.TO_RECEIVE.NORTH;
+import static manel.com.manel.utils.Constants.KEYS.TO_RECEIVE.SOUTH;
 import static manel.com.manel.utils.Constants.KEYS.TO_RECEIVE.TEMP;
 import static manel.com.manel.utils.Constants.KEYS.TO_RECEIVE.ULTRASOUND;
+import static manel.com.manel.utils.Constants.KEYS.TO_RECEIVE.WEST;
 import static manel.com.manel.utils.Constants.KEYS.TO_RECEIVE.getReceivingKeys;
 
 /**
@@ -76,6 +82,18 @@ public class UdpDatagramDeconstructor {
                 break;
             case ACC_Z:
                 printAccZ(Double.valueOf(value));
+                break;
+            case ACTUAL_CELL:
+                break;
+            case LAST_CELL:
+                break;
+            case NORTH:
+                break;
+            case SOUTH:
+                break;
+            case EAST:
+                break;
+            case WEST:
                 break;
         }
     }
