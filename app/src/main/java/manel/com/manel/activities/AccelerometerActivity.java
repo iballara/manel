@@ -22,6 +22,8 @@ public class AccelerometerActivity extends AppCompatActivity //implements Sensor
 
     private static final String ACC_ON = "1";
     private static final String ACC_OFF = "0";
+    private static final long timeBetweenFrames = 500;
+
     private static TextView tvX, tvY, tvZ;
 
     /**
@@ -37,6 +39,7 @@ public class AccelerometerActivity extends AppCompatActivity //implements Sensor
         actBar.setHomeButtonEnabled(true);
         UdpDatagramConstructor.sendAcc(ACC_ON);
         setViews();
+        CommunicationService.timeBetweenFrames = timeBetweenFrames;
         if (!CommunicationService.isServiceRunning) {
             startService(new Intent(this, CommunicationService.class));
         }

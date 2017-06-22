@@ -27,6 +27,7 @@ import manel.com.manel.utils.Constants;
 public class LabyrinthActivity extends AppCompatActivity {
 
     private final static String LAST_CELL_OK = "441";
+    private static final long timeBetweenFrames = 5000;
     private static LinearLayout layout;
     private static View actualCell;
     private static Button secondRideBtn;
@@ -43,6 +44,7 @@ public class LabyrinthActivity extends AppCompatActivity {
         ActionBar actBar = getSupportActionBar();
         actBar.setHomeButtonEnabled(true);
         setViews();
+        CommunicationService.timeBetweenFrames = timeBetweenFrames;
         if (!CommunicationService.isServiceRunning) {
             startService(new Intent(this, CommunicationService.class));
         }

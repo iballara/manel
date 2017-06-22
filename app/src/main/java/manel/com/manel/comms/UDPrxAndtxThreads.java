@@ -148,11 +148,12 @@ class UDPrxAndtxThreads {
                         DatagramSocket dsocket = new DatagramSocket();
                         dsocket.send(packet);
                         dsocket.close();
+                        Thread.sleep(CommunicationService.timeBetweenFrames);
                         UdpDatagramConstructor.shape = DEFAULT_SHAPE;
                     } else {
                         Log.i("Packet sent: ", "is null");
                     }
-                } catch (IOException e) {
+                } catch (IOException | InterruptedException e) {
                     e.printStackTrace();
                 }
             }

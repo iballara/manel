@@ -19,6 +19,7 @@ import manel.com.manel.comms.CommunicationService;
 public class CommunicationLogActivity extends AppCompatActivity {
 
     private static TextView textView;
+    private static final long timeBetweenFrames = 500;
 
     /**
      * OnCreate Method from Activity.
@@ -33,6 +34,7 @@ public class CommunicationLogActivity extends AppCompatActivity {
         actBar.setHomeButtonEnabled(true);
         textView = (TextView) findViewById(R.id.tv_log);
         textView.setText(R.string.log);
+        CommunicationService.timeBetweenFrames = timeBetweenFrames;
         if (!CommunicationService.isServiceRunning) {
             startService(new Intent(this, CommunicationService.class));
         }
