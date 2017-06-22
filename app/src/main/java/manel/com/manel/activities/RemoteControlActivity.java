@@ -60,6 +60,7 @@ public class RemoteControlActivity extends AppCompatActivity
     public static final String DEFAULT_SPEED = "+0";
     public static final String DEFAULT_SHAPE = "0";
     private static final String PLUS = "+";
+    private static final long timeBetweenFrames = 500;
 
     private Boolean isButtonPressed;
     private GestureLibrary gestureLib;
@@ -107,6 +108,7 @@ public class RemoteControlActivity extends AppCompatActivity
         sendShape(DEFAULT_SHAPE);
         setContentView(gestureOverlayView);
         setViews();
+        CommunicationService.timeBetweenFrames = timeBetweenFrames;
         if (!CommunicationService.isServiceRunning) {
             startService(new Intent(this, CommunicationService.class));
         }
